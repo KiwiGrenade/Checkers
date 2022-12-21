@@ -13,19 +13,21 @@ public class ChessClient {
             Scanner input = new Scanner(socket.getInputStream());
             PrintWriter output = new PrintWriter(socket.getOutputStream(), true);
             boolean isGameOngoing = true;
-            while (scanner.hasNextLine()) {
-                output.println(scanner.nextLine());
-                switch (input.nextLine())
-                {
-                    case "WINNER": {
-                        System.out.println("You won! Congratulations!");
-                        isGameOngoing = false;
-                        break;
+            while (isGameOngoing) {
+                String request = scanner.nextLine();
+                output.println(request);
+
+                String serverResponse = input.nextLine();
+                switch (serverResponse) {
+                    case "MOVE" -> {
+                        System.out.println("Move: " + request.substring(1));
                     }
-                    case "LOSER": {
-                        System.out.println("You lost! Game Over!");
+                    case "QUI" -> {
+                        System.out.println("See ya sun!");
                         isGameOngoing = false;
-                        break;
+                    }
+                    case "INVALID_REQUEST" -> {
+                        System.out.println("Requested action is invalid! Try again!");
                     }
                 }
             }

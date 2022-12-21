@@ -32,16 +32,22 @@ public class ChessServer {
                 PrintWriter output = new PrintWriter(socket.getOutputStream(), true);
                 while (input.hasNextLine()) {
                     //output command from client
-                    System.out.println(input.nextLine());
-                    switch(input.nextLine())
+                    String request = input.nextLine();
+                    System.out.println(request);
+
+                    switch(request.substring(0, 1))
                     {
-                        case "w": {
-                            output.print("WINNER");
+                        case "M": {
+                            output.println("MOVE");
                             break;
                         }
-                        case "l": {
-                            output.print("LOSER");
+                        case "Q": {
+                            output.println("QUIT");
                             break;
+                        }
+                        default:
+                        {
+                            output.println("INVALID_REQUEST");
                         }
                     }
                 }
@@ -55,4 +61,8 @@ public class ChessServer {
             }
         }
     }
+//    public static boolean isMoveValid(String move)
+//    {
+//
+//    }
 }
