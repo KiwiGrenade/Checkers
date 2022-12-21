@@ -12,7 +12,7 @@ public class ChessClient {
             Scanner input = new Scanner(socket.getInputStream());
             PrintWriter output = new PrintWriter(socket.getOutputStream(), true);
             boolean isGameOngoing = true;
-            while (isGameOngoing) {
+            while (scanner.hasNextLine()) {
                 output.println(scanner.nextLine());
                 switch (input.nextLine())
                 {
