@@ -4,6 +4,7 @@ import java.io.PrintWriter;
 import java.net.Socket;
 import java.util.Scanner;
 
+//czy dziala input
 public class ChessClient {
     public static void main(String[] args) throws Exception {
         String serverAddress = "127.0.0.1";
