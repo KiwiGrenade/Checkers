@@ -6,4 +6,5 @@ public class Main {
     }
     //nowe linijki
     //linijka
+    //pokaz
 }
