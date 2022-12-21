@@ -31,7 +31,19 @@ public class ChessServer {
                 Scanner input = new Scanner(socket.getInputStream());
                 PrintWriter output = new PrintWriter(socket.getOutputStream(), true);
                 while (input.hasNextLine()) {
-                    System.out.println(input.nextLine().toUpperCase());
+                    //output command from client
+                    System.out.println(input.nextLine());
+                    switch(input.nextLine())
+                    {
+                        case "w": {
+                            output.print("WINNER");
+                            break;
+                        }
+                        case "l": {
+                            output.print("LOSER");
+                            break;
+                        }
+                    }
                 }
             } catch (Exception e) {
                 System.out.println("Error: " + socket);
