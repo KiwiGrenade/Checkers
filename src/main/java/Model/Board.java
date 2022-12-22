@@ -42,7 +42,7 @@ public class Board {
             }
         }
     }
-    //sprawdzam czy tablica wyswietla sie poprawnie
+    //sprawdzam czy tablica wyswietla sie poprawnie - wiadomo ze bedzie zastapione testem
     public static void main(String[] args){
         Board checkerboard = new Board(8,8);
         for (int i = 0; i<8;i++) {
