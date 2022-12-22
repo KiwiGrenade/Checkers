@@ -2,7 +2,7 @@ package Model;
 
 public class Board {
     public int fields[][];
-    int rows, cols;
+    public int rows, cols;
 
     //tworzy tablice
     public Board(int rows, int cols){
@@ -10,7 +10,7 @@ public class Board {
         this.rows=rows;
         this.cols=cols;
         this.setFields();
-        this.placeCheckers();
+        //this.placeCheckers();
     }
 
     //ustawia kolory na tablicy
@@ -45,6 +45,7 @@ public class Board {
     //sprawdzam czy tablica wyswietla sie poprawnie - wiadomo ze bedzie zastapione testem
     public static void main(String[] args){
         Board checkerboard = new Board(8,8);
+        checkerboard.placeCheckers();
         for (int i = 0; i<8;i++) {
             for (int j = 0; j < 8; j++) {
                 System.out.print(checkerboard.fields[i][j]);

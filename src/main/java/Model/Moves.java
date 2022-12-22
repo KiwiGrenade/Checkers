@@ -1,11 +1,13 @@
 package Model;
 
 public class Moves {
-    private int player;//umowny gracz 1-biale i 2-czarne
+    private int player;//umowny gracz 1-biale, 2-czarne
     private int currentRow;
     private int currentCol;
 
+//dodac logike danego wariantu warcabow np. wzorcem state
 
+    //zmiana na damke
     public void changeToQueen(Board board){
         if(player==1) {
             for (int col = 0; col < board.cols; col++) {
