@@ -23,19 +23,23 @@ public class CheckersView extends Application {
         root.setPrefSize(board.rows * TILE_SIZE, board.cols * TILE_SIZE);
         root.getChildren().addAll(tiles);
 
-        //uzupelnienie planszy polami
+        // uzupelnienie planszy polami
+        setPawns();
+        return root;
+    }
+
+    private void setPawns() {
         for (int col = 0; col < board.cols; col++) {
             for (int row = 0; row < board.rows; row++) {
-                Tile tile = new Tile(!getColor(board.fields[row][col]), row, col);
+                Tile tile = new Tile(!isWhite(board.fields[row][col]), row, col);
                 checkerboard[row][col] = tile;
                 tiles.getChildren().add(tile);
             }
         }
-        return root;
     }
 
-    //sprawdza kolor pola, pozniej dodamy funckje sprawdzajaca rodzaj pionka
-    public boolean getColor(int k){
+    // sprawdza kolor pola, pozniej dodamy funckje sprawdzajaca rodzaj pionka
+    public boolean isWhite(int k){
         return k >= 1;
     }
 
