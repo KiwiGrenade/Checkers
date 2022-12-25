@@ -3,6 +3,6 @@ module elo.demo {
     requires javafx.fxml;
 
 
-    opens elo.demo to javafx.fxml;
-    exports elo.demo;
+    opens View to javafx.fxml;
+    exports View;
 }

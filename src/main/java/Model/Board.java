@@ -1,12 +1,39 @@
 package Model;
 
 public class Board {
-    public int fields[][];
-    public int rows, cols;
+    // fields should be static -> no chance of copy existing
+    private static int fields[][];
+
+    // NEVER USE PUBLIC CLASS VARIABLES!
+    private int rows;
+
+    public int getRows() {
+        return rows;
+    }
+
+    public int getCols() {
+        return cols;
+    }
+
+    private int cols;
+    public int getField(int col, int row) {
+        return fields[col][row];
+    }
+
+    public void setField(int col, int row, int value) {
+        fields[col][row] = value;
+    }
+
+    public static int[][] getAllFields() {
+        return fields;
+    }
+
+    public static void setAllFields(int[][] fields) {
+        Board.fields = fields;
+    }
 
     //tworzy tablice
-    public Board(int rows, int cols){
-        this.fields = new int[rows][cols];
+    public Board(int rows, int cols) {
         this.rows=rows;
         this.cols=cols;
         this.setFields();

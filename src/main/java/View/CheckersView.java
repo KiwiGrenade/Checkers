@@ -1,4 +1,4 @@
-package elo.demo;
+package View;
 
 import Model.Board;
 import javafx.application.Application;
@@ -15,12 +15,12 @@ public class CheckersView extends Application {
     public static final int TILE_SIZE = 100;//skala
     private Board board = new Board(8,8);
 
-    private Tile[][] checkerboard = new Tile[board.rows][board.cols];
+    private Tile[][] checkerboard = new Tile[board.getRows()][board.getCols()];
     private Group tiles = new Group();
 
     private Parent createContent() {
         Pane root = new Pane();
-        root.setPrefSize(board.rows * TILE_SIZE, board.cols * TILE_SIZE);
+        root.setPrefSize(board.getRows() * TILE_SIZE, board.getCols() * TILE_SIZE);
         root.getChildren().addAll(tiles);
 
         // uzupelnienie planszy polami
@@ -29,9 +29,9 @@ public class CheckersView extends Application {
     }
 
     private void setPawns() {
-        for (int col = 0; col < board.cols; col++) {
-            for (int row = 0; row < board.rows; row++) {
-                Tile tile = new Tile(!isWhite(board.fields[row][col]), row, col);
+        for (int col = 0; col < board.getCols(); col++) {
+            for (int row = 0; row < board.getRows(); row++) {
+                Tile tile = new Tile(!isWhite(board.getField(row, col)), row, col);
                 checkerboard[row][col] = tile;
                 tiles.getChildren().add(tile);
             }

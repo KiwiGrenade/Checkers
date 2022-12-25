@@ -1,4 +1,4 @@
-package elo.demo;
+package View;
 
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
