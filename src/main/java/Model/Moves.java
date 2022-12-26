@@ -20,7 +20,7 @@ public class Moves {
         }
         else if(player==2) {
             for (int col = 0; col < board.getCols(); col++) {
-                if (board.getField(col, 0)== 3) {
+                if (board.getField(col, 0) == 3) {
                     board.setField(col, 0, 5);
                 }
             }
