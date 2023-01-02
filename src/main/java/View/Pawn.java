@@ -38,8 +38,8 @@ public class Pawn extends Circle {
         this.col = col;
         this.row = row;
         setRadius(CheckersView.TILE_SIZE / 2.0 - 5);
-        setCenterX(col * CheckersView.TILE_SIZE + CheckersView.TILE_SIZE / 2.0);
-        setCenterY(row * CheckersView.TILE_SIZE + CheckersView.TILE_SIZE / 2.0);
+        setCenterX(row * CheckersView.TILE_SIZE + CheckersView.TILE_SIZE / 2.0);
+        setCenterY(col * CheckersView.TILE_SIZE + CheckersView.TILE_SIZE / 2.0);
         setFill(white ? Color.WHITE : Color.BLACK);
     }
 }

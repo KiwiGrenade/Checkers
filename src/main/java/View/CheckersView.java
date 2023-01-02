@@ -14,28 +14,31 @@ import java.util.ArrayList;
 //przykladowy widok szachownicy, w przyszlosci kontroler bedzie odpowiadal za komunikacje
 public class CheckersView extends Application {
     public static final int TILE_SIZE = 100;//skala
-    final private static Board board = new Board(8,8);
+    public static final int BOARD_SIZE = 8;
+    final private static Board board = new Board(BOARD_SIZE,BOARD_SIZE);
 
-    final private Tile[][] checkerboard = new Tile[board.getRows()][board.getCols()];
+    final private Tile[][] checkerboard = new Tile[BOARD_SIZE][BOARD_SIZE];
     final private ArrayList<Pawn> checkers = new ArrayList<Pawn>();
     final private Group tiles = new Group();
     final private Group pawns = new Group();
 
     private void placeTiles() {
-        for (int col = 0; col < board.getCols(); col++) {
-            for (int row = 0; row < board.getRows(); row++) {
+        for (int col = 0; col < BOARD_SIZE; col++) {
+            for (int row = 0; row < BOARD_SIZE; row++) {
                 Tile tile = new Tile(!isWhite(board.getField(row, col)), row, col);
                 checkerboard[row][col] = tile;
                 tiles.getChildren().add(tile);
             }
         }
     }
+
+    //readBoard
     public void placePawns(){
-        for (int i = 0; i < board.getRows(); i++) {
-            for (int j = 0; j < board.getCols(); j++) {
+        for (int j = 0; j < BOARD_SIZE; j++) {
+            for (int i = 0; i < BOARD_SIZE; i++) {
                 switch (board.getField(i, j)) {
                     case 2 -> {
-                        Pawn tempPawn = new Pawn(true, j, j);
+                        Pawn tempPawn = new Pawn(true, i, j);
                         checkers.add(tempPawn);
                         pawns.getChildren().add(tempPawn);
                     }
@@ -56,7 +59,7 @@ public class CheckersView extends Application {
 
     private Parent createContent() {
         Pane root = new Pane();
-        root.setPrefSize(board.getRows() * TILE_SIZE, board.getCols() * TILE_SIZE);
+        root.setPrefSize(BOARD_SIZE * TILE_SIZE, BOARD_SIZE * TILE_SIZE);
         placeTiles();
         root.getChildren().addAll(tiles);
         placePawns();

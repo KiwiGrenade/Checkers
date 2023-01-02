@@ -43,11 +43,10 @@ public class Board {
 
     //ustawia kolory na tablicy
     public void setFields() {
-        int black = 1;
         for (int i = 0; i < cols; i++) {
             for (int j = 0; j < rows; j++) {
                 if((i + j) % 2 == 1)
-                    fields[i][j] = black;
+                    fields[i][j] = 1;
                 else
                     fields[i][j] = 0;
             }

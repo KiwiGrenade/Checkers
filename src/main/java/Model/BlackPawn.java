@@ -1,9 +1,9 @@
 package Model;
 
 public class BlackPawn extends Pawn{
-    private int color;
-    private int column;
-    private int row;
+    public BlackPawn(boolean isWhite, int col , int row){
+        super(isWhite, col, row);
+    }
     @Override
     public void moveUpRight() {
 

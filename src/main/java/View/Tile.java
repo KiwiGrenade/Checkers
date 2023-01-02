@@ -13,6 +13,6 @@ public class Tile extends Rectangle {
 
         relocate(x * CheckersView.TILE_SIZE, y * CheckersView.TILE_SIZE);
 
-        setFill(white ? Color.WHITE : Color.BROWN);
+        setFill(white ? Color.GREY : Color.BROWN);
     }
 }

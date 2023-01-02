@@ -1,13 +1,8 @@
 package Model;
 
 public class WhitePawn extends Pawn{
-    private boolean isWhite;
-    private int col;
-    private int row;
     public WhitePawn(boolean isWhite, int col, int row) {
-        this.isWhite = isWhite;
-        this.col = col;
-        this.row = row;
+        super(isWhite, col, row);
     }
     @Override
     public void moveUpRight() {
