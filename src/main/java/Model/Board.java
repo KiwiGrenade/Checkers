@@ -1,21 +1,18 @@
 package Model;
 
 public class Board {
-    // fields should be static -> no chance of copy existing
-    private static int fields[][];
+    private static int[][] fields;
+    private static final int BOARD_SIZE = 8;
 
-    // NEVER USE PUBLIC CLASS VARIABLES!
-    private int rows;
-
-    public int getRows() {
-        return rows;
+    public Board(int size) {
+        fields = new int[size][size];
+        this.setFields();
+        this.placeCheckers();
     }
-
-    public int getCols() {
-        return cols;
+    static public int getBoardSize()
+    {
+        return BOARD_SIZE;
     }
-
-    private int cols;
     public int getField(int col, int row) {
         return fields[col][row];
     }
@@ -32,19 +29,10 @@ public class Board {
         Board.fields = fields;
     }
 
-    //tworzy tablice
-    public Board(int cols, int rows) {
-        this.fields = new int[cols][rows];
-        this.rows = rows;
-        this.cols = cols;
-        this.setFields();
-        this.placeCheckers();
-    }
-
     //ustawia kolory na tablicy
     public void setFields() {
-        for (int i = 0; i < cols; i++) {
-            for (int j = 0; j < rows; j++) {
+        for (int i = 0; i < BOARD_SIZE; i++) {
+            for (int j = 0; j < BOARD_SIZE; j++) {
                 if((i + j) % 2 == 1)
                     fields[i][j] = 1;
                 else
@@ -55,29 +43,18 @@ public class Board {
 
     //ustawia pionki 2 - biale 3 - czarne
     public void placeCheckers(){
-        for(int i = rows - 3; i < rows; i++) {
-            for (int j = 0; j < cols; j++) {
+        for(int i = BOARD_SIZE - 3; i < BOARD_SIZE; i++) {
+            for (int j = 0; j < BOARD_SIZE; j++) {
                 if (fields[i][j] == 1)
                     fields[i][j] = 2;
             }
         }
 
         for(int i = 0; i < 3; i++) {
-            for (int j = 0; j < cols; j++) {
+            for (int j = 0; j < BOARD_SIZE; j++) {
                 if (fields[i][j] == 1)
                     fields[i][j] = 3;
             }
-        }
-    }
-    //sprawdzam czy tablica wyswietla sie poprawnie - wiadomo ze bedzie zastapione testem
-    public static void main(String[] args){
-        Board checkerboard = new Board(8,8);
-        checkerboard.placeCheckers();
-        for (int i = 0; i < checkerboard.getCols(); i++) {
-            for (int j = 0; j < checkerboard.getRows(); j++) {
-                System.out.print(fields[i][j]);
-            }
-            System.out.println("");
         }
     }
 }
