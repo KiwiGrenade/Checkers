@@ -33,7 +33,7 @@ public class Board {
     }
 
     //tworzy tablice
-    public Board(int rows, int cols) {
+    public Board(int cols, int rows) {
         this.fields = new int[cols][rows];
         this.rows = rows;
         this.cols = cols;
@@ -74,9 +74,9 @@ public class Board {
     public static void main(String[] args){
         Board checkerboard = new Board(8,8);
         checkerboard.placeCheckers();
-        for (int i = 0; i < 8; i++) {
-            for (int j = 0; j < 8; j++) {
-                System.out.print(checkerboard.fields[i][j]);
+        for (int i = 0; i < checkerboard.getCols(); i++) {
+            for (int j = 0; j < checkerboard.getRows(); j++) {
+                System.out.print(fields[i][j]);
             }
             System.out.println("");
         }
