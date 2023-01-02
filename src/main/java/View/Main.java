@@ -12,7 +12,7 @@ public class Main extends Application {
 
     public static final int TILE_SIZE = 100;//skala
     public static final int BOARD_SIZE = 8;
-    final private static Board board = new Board(BOARD_SIZE, BOARD_SIZE);
+    final private static Board board = new Board(BOARD_SIZE);
     //final private ArrayList<Pawn> checkers = new ArrayList<Pawn>();
 
     @Override
