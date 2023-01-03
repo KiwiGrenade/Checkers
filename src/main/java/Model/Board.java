@@ -7,18 +7,18 @@ public class Board {
     public Board(int size) {
         Board.size = size;
         fields = new int [size][size];
-        this.setFields();
-        this.placeCheckers();
+        setTiles();
+        placeCheckers();
     }
     static public int getSize()
     {
         return size;
     }
-    public int getField(int col, int row) {
+    public static int getField(int col, int row) {
         return fields[col][row];
     }
 
-    public void setField(int col, int row, int value) {
+    public static void setField(int col, int row, int value) {
         fields[col][row] = value;
     }
 
@@ -31,19 +31,21 @@ public class Board {
     }
 
     //ustawia kolory na tablicy
-    public void setFields() {
+    public static void setTiles() {
         for (int i = 0; i < size; i++) {
             for (int j = 0; j < size; j++) {
                 if((i + j) % 2 == 1)
+                    //black
                     fields[i][j] = 1;
                 else
+                    //white
                     fields[i][j] = 0;
             }
         }
     }
 
     //ustawia pionki 2 - biale 3 - czarne
-    public void placeCheckers(){
+    public static void placeCheckers(){
         for(int i = size - 3; i < size; i++) {
             for (int j = 0; j < size; j++) {
                 if (fields[i][j] == 1)
