@@ -6,9 +6,9 @@ import javafx.scene.shape.Rectangle;
 //pole na szachownicy
 public class Tile extends Rectangle {
     public Tile(boolean white) {
-        setWidth(CheckersView.TILE_SIZE);
-        setHeight(CheckersView.TILE_SIZE);
+        setWidth(CheckersController.TILE_SIZE);
+        setHeight(CheckersController.TILE_SIZE);
 
-        setFill(white ? Color.GREY : Color.BROWN);
+        setFill(white ? Color.valueOf("#feb") : Color.valueOf("#582"));
     }
 }

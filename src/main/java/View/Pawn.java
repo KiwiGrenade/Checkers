@@ -39,7 +39,7 @@ public class Pawn extends Circle {
         this.white = white;
         this.col = col;
         this.row = row;
-        setRadius(CheckersView.TILE_SIZE / 2.0);
-        setFill(white ? Color.WHITE : Color.BLACK);
+        setRadius(CheckersController.TILE_SIZE / 2.0);
+        setFill(white ? Color.valueOf("#fff9f4") : Color.valueOf("#c40003"));
     }
 }

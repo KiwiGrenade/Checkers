@@ -1,4 +1,4 @@
-module elo.demo {
+module View {
     requires javafx.controls;
     requires javafx.fxml;
 
