@@ -2,7 +2,9 @@ package View;
 
 import Model.Board;
 import javafx.application.Application;
+import javafx.scene.Node;
 import javafx.scene.Scene;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
 
@@ -26,11 +28,18 @@ public class CheckersView extends Application {
 
         drawCheckers(pane);
 
+        pane.setOnMousePressed(this::mousePressedOnRoot);
+
         Scene scene = new Scene(pane);
         primaryStage.setTitle("Checkers");
         primaryStage.setScene(scene);
         primaryStage.setResizable(false);
         primaryStage.show();
+    }
+
+    //zwraca x,y kliknietego pola([x][y])
+    private void mousePressedOnRoot(MouseEvent e) {
+        System.out.println("["+GridPane.getRowIndex((Node) e.getTarget())+"]["+GridPane.getColumnIndex((Node) e.getTarget())+"]");
     }
 
     public boolean isWhite(int k) {
