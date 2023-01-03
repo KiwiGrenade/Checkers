@@ -11,16 +11,15 @@ import javafx.stage.Stage;
 //przykladowy widok szachownicy, w przyszlosci kontroler bedzie odpowiadal za komunikacje
 public class CheckersView extends Application {
     public static final int TILE_SIZE = 100;//skala
-    public static final int BOARD_SIZE = 8;
-    final private static Board board = new Board(BOARD_SIZE);
+    final private static Board board = new Board(8);
 
     @Override
     public void start(Stage primaryStage) {
         GridPane pane = new GridPane();
 
         //ustawiamy szachownice
-        for (int i = 0; i < BOARD_SIZE; i++) {
-            for (int j = 0; j < BOARD_SIZE; j++) {
+        for (int i = 0; i < Board.getSize(); i++) {
+            for (int j = 0; j < Board.getSize(); j++) {
                 Tile tile = new Tile(!isWhite(board.getField(j, i)));
                 pane.add(tile, j, i);
             }
@@ -48,8 +47,8 @@ public class CheckersView extends Application {
 
     //rysuje pionki
     public void drawCheckers(GridPane pane) {
-        for (int j = 0; j < BOARD_SIZE; j++) {
-            for (int i = 0; i < BOARD_SIZE; i++) {
+        for (int j = 0; j < Board.getSize(); j++) {
+            for (int i = 0; i < Board.getSize(); i++) {
                 switch (board.getField(i, j)) {
                     case 2 -> {
                         Pawn tempPawn = new Pawn(true, j, i);

@@ -12,14 +12,14 @@ public class Moves {
     // zmiana na damke
     public void changeToQueen(Board board){
         if(player==1) {
-            for (int col = 0; col < Board.getBoardSize(); col++) {
+            for (int col = 0; col < Board.getSize(); col++) {
                 if (board.getField(col, 0) == 2) {
                     board.setField(col, 0, 4);
                 }
             }
         }
         else if(player==2) {
-            for (int col = 0; col < Board.getBoardSize(); col++) {
+            for (int col = 0; col < Board.getSize(); col++) {
                 if (board.getField(col, 0) == 3) {
                     board.setField(col, 0, 5);
                 }
