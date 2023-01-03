@@ -1,6 +1,6 @@
 package Model;
 
-public class WhitePawn extends Pawn{
+public class WhitePawn extends Pawn implements Moves{
     public WhitePawn(boolean isWhite, int col, int row) {
         super(isWhite, col, row);
     }
