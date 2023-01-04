@@ -167,45 +167,6 @@ class BoardTest {
     }
 
     @Test
-    void punchBlack()
-    {
-        int[][] testBoard = {
-                //0,1, 2, 3, 4, 5, 6, 7
-                {0, 3, 0, 3, 0, 3, 0, 3},//0
-                {3, 0, 3, 0, 3, 0, 3, 0},//1
-                {0, 3, 0, 3, 0, 1, 0, 3},//2
-                {1, 0, 1, 0, 1, 0, 1, 0},//3
-                {0, 1, 0, 1, 0, 1, 0, 3},//4
-                {2, 0, 2, 0, 1, 0, 2, 0},//5
-                {0, 2, 0, 2, 0, 2, 0, 2},//6
-                {2, 0, 2, 0, 2, 0, 2, 0},//7
-        };
-        Board.move(4, 5, 5, 4);
-        Board.move(5, 4, 6, 3);
-        Board.move(5, 2, 7, 4);
-        assertArrayEquals(testBoard, Board.getAllFields(), "Black: punch up left");
-
-
-        Board.setTiles();
-        Board.placeCheckers();
-        testBoard = new int[][]{
-                //0,1, 2, 3, 4, 5, 6, 7
-                {0, 3, 0, 3, 0, 3, 0, 3},//0
-                {3, 0, 3, 0, 3, 0, 3, 0},//1
-                {0, 3, 0, 3, 0, 3, 0, 1},//2
-                {1, 0, 1, 0, 1, 0, 1, 0},//3
-                {0, 1, 0, 1, 0, 3, 0, 1},//4
-                {2, 0, 2, 0, 1, 0, 2, 0},//5
-                {0, 2, 0, 2, 0, 2, 0, 2},//6
-                {2, 0, 2, 0, 2, 0, 2, 0},//7
-        };
-        Board.move(4, 5, 5, 4);
-        Board.move(5, 4, 6, 3);
-        Board.move(7, 2, 5, 4);
-        assertArrayEquals(testBoard, Board.getAllFields(), "Black: punch up right");
-    }
-
-    @Test
     void punchWhite()
     {
         int[][] testBoard = {
@@ -242,5 +203,43 @@ class BoardTest {
         Board.move(6, 3, 5, 4);
         Board.move(4, 5, 6, 3);
         assertArrayEquals(testBoard, Board.getAllFields(), "White: punch up right");
+    }
+    @Test
+    void punchBlack()
+    {
+        int[][] testBoard = {
+                //0,1, 2, 3, 4, 5, 6, 7
+                {0, 3, 0, 3, 0, 3, 0, 3},//0
+                {3, 0, 3, 0, 3, 0, 3, 0},//1
+                {0, 3, 0, 3, 0, 1, 0, 3},//2
+                {1, 0, 1, 0, 1, 0, 1, 0},//3
+                {0, 1, 0, 1, 0, 1, 0, 3},//4
+                {2, 0, 2, 0, 1, 0, 2, 0},//5
+                {0, 2, 0, 2, 0, 2, 0, 2},//6
+                {2, 0, 2, 0, 2, 0, 2, 0},//7
+        };
+        Board.move(4, 5, 5, 4);
+        Board.move(5, 4, 6, 3);
+        Board.move(5, 2, 7, 4);
+        assertArrayEquals(testBoard, Board.getAllFields(), "Black: punch up left");
+
+
+        Board.setTiles();
+        Board.placeCheckers();
+        testBoard = new int[][]{
+                //0,1, 2, 3, 4, 5, 6, 7
+                {0, 3, 0, 3, 0, 3, 0, 3},//0
+                {3, 0, 3, 0, 3, 0, 3, 0},//1
+                {0, 3, 0, 3, 0, 3, 0, 1},//2
+                {1, 0, 1, 0, 1, 0, 1, 0},//3
+                {0, 1, 0, 1, 0, 3, 0, 1},//4
+                {2, 0, 2, 0, 1, 0, 2, 0},//5
+                {0, 2, 0, 2, 0, 2, 0, 2},//6
+                {2, 0, 2, 0, 2, 0, 2, 0},//7
+        };
+        Board.move(4, 5, 5, 4);
+        Board.move(5, 4, 6, 3);
+        Board.move(7, 2, 5, 4);
+        assertArrayEquals(testBoard, Board.getAllFields(), "Black: punch up right");
     }
 }

@@ -72,107 +72,71 @@ public class Board {
         switch (getField(y1, x1)) {
             //if white pawn
             case 2 -> {
-                switch(abs(x1-x2)){
-                    //if destination is "sideways" by
-                    //one
-                    case 1 -> {
-                        //normal move
-                        //check if move is "upwards"
-                        if(y1-y2 == 1)
-                        {
-                            setField(y1, x1, 1);
-                            setField(y2, x2, 2);
-                        }
-                        else {
-                            return false;
-                        }
-                    }
-                    //two
-                    case 2 -> {
-                        //punch
-                        if(x2 > x1 && y2 < y1) {
-                            setField(y1, x1, 1);
-                            setField(y1 - 1, x1 + 1, 1);
-                            setField(y2, x2, 2);
-                        }
-                        else if(x2 < x1 && y2 < y1) {
-                            setField(y1, x1, 1);
-                            setField(y1 - 1, x1 - 1, 1);
-                            setField(y2, x2, 2);
-                        }
-                        else if(x2 < x1 && y2 > y1) {
-                            setField(y1, x1, 1);
-                            setField(y1 + 1, x1 - 1, 1);
-                            setField(y2, x2, 2);
-                        }
-                        else if(x2 > x1 && y2 > y1) {
-                            setField(y1, x1, 1);
-                            setField(y1 + 1, x1 + 1, 1);
-                            setField(y2, x2, 2);
-                        }
-                        else {
-                            return false;
-                        }
-                    }
-                    default -> {
-                        return false;
-                    }
-                }
+                return moveAccToColor(x1, y1, x2, y2,2);
             }
             //if black pawn
             case 3 -> {
-                switch(abs(x1-x2)){
-                    //if destination is "sideways" by
-                    //one
-                    case 1 -> {
-                        //normal move
-                        //check if move is "upwards"
-                        if(y2-y1 == 1)
-                        {
-                            setField(y1, x1, 1);
-                            setField(y2, x2, 3);
-                        }
-                        else {
-                            return false;
-                        }
-                    }
-                    //two
-                    case 2 -> {
-                        //punch
-                        if(x2 > x1 && y2 < y1) {
-                            setField(y1, x1, 1);
-                            setField(y1 - 1, x1 + 1, 1);
-                            setField(y2, x2, 3);
-                        }
-                        else if(x2 < x1 && y2 < y1) {
-                            setField(y1, x1, 1);
-                            setField(y1 - 1, x1 - 1, 1);
-                            setField(y2, x2, 3);
-                        }
-                        else if(x2 < x1 && y2 > y1) {
-                            setField(y1, x1, 1);
-                            setField(y1 + 1, x1 - 1, 1);
-                            setField(y2, x2, 3);
-                        }
-                        else if(x2 > x1 && y2 > y1) {
-                            setField(y1, x1, 1);
-                            setField(y1 + 1, x1 + 1, 1);
-                            setField(y2, x2, 3);
-                        }
-                        else {
-                            return false;
-                        }
-                    }
-                    default -> {
-                        return false;
-                    }
-                }
-
+                return moveAccToColor(x1, y1, x2, y2, 3);
             }
             //if something else
             default -> {
                 return false;
             }
+        }
+    }
+
+    //pawnColor - (2) white - (3) black
+    private static boolean moveAccToColor(int x1, int y1, int x2, int y2, int pawnColor)
+    {
+        switch(abs(x1-x2)){
+            //if destination is "sideways" by
+            case 1 -> {
+                //normal move
+                //check if move is "upwards"
+                if((y1 - y2 == 1 && pawnColor == 2) ||
+                    (y1 - y2 == -1 && pawnColor == 3)) {
+                    setField(y1, x1, 1);
+                    setField(y2, x2, pawnColor);
+                    return true;
+                }
+                else {
+                    return false;
+                }
+            }
+            case 2 -> {
+                return punch(x1, y1, x2, y2, pawnColor);
+            }
+            default -> {
+                return false;
+            }
+        }
+    }
+
+    private static boolean punch(int x1, int y1, int x2, int y2, int pawnColor)
+    {
+        if(x2 > x1 && y2 < y1) {
+            setField(y1, x1, 1);
+            setField(y1 - 1, x1 + 1, 1);
+            setField(y2, x2, pawnColor);
+        }
+        else if(x2 < x1 && y2 < y1) {
+            setField(y1, x1, 1);
+            setField(y1 - 1, x1 - 1, 1);
+            setField(y2, x2, pawnColor);
+        }
+        else if(x2 < x1 && y2 > y1) {
+            setField(y1, x1, 1);
+            setField(y1 + 1, x1 - 1, 1);
+            setField(y2, x2, pawnColor);
+        }
+        else if(x2 > x1 && y2 > y1) {
+            setField(y1, x1, 1);
+            setField(y1 + 1, x1 + 1, 1);
+            setField(y2, x2, pawnColor);
+        }
+        else
+        {
+            return false;
         }
         return true;
     }
