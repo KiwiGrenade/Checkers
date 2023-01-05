@@ -1,68 +1,25 @@
 package Server;
 
-import java.io.PrintWriter;
+import java.io.*;
 import java.net.ServerSocket;
 import java.net.Socket;
-import java.util.Scanner;
-import java.util.concurrent.Executor;
+import java.util.ArrayList;
+import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 public class ChessServer {
-    public static void main(String[] args) throws Exception {
-        try (ServerSocket listener = new ServerSocket(59898)){
-            Executor pool = Executors.newFixedThreadPool(2);
-            while (true) {
-                pool.execute(new Game(listener.accept()));
-            }
+    //trzeba poprawic limit na dwoch klientow(wiem jak zrobic) i dodac identyfikator dla uzytkownika(tic tac toe example)
+    private static ExecutorService pool = Executors.newFixedThreadPool(2);
+    private static ArrayList<ClientHandler> clients = new ArrayList<>();
+
+    public static void main(String[] args) throws IOException {
+
+        ServerSocket server = new ServerSocket(12345);
+        while(true) {
+            Socket socket = server.accept();
+            ClientHandler clientHandler = new ClientHandler(socket);
+            clients.add(clientHandler);
+            pool.execute(clientHandler);
         }
     }
-
-    private static class Game implements Runnable {
-        private Socket socket;
-
-        Game(Socket socket) {
-            this.socket = socket;
-        }
-
-        @Override
-        public void run() {
-            System.out.println("Connected: " + socket);
-            try {
-                Scanner input = new Scanner(socket.getInputStream());
-                PrintWriter output = new PrintWriter(socket.getOutputStream(), true);
-                while (input.hasNextLine()) {
-                    //output command from client
-                    String request = input.nextLine();
-                    System.out.println(request);
-
-                    switch(request.substring(0, 1))
-                    {
-                        case "M": {
-                            output.println("MOVE");
-                            break;
-                        }
-                        case "Q": {
-                            output.println("QUIT");
-                            break;
-                        }
-                        default:
-                        {
-                            output.println("INVALID_REQUEST");
-                        }
-                    }
-                }
-            } catch (Exception e) {
-                System.out.println("Error: " + socket);
-            } finally {
-                try {
-                    socket.close();
-                } catch (Exception e) {}
-                System.out.println("Closed: " + socket);
-            }
-        }
-    }
-//    public static boolean isMoveValid(String move)
-//    {
-//
-//    }
 }

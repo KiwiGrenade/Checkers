@@ -1,98 +1,132 @@
 package View;
 
 import Model.Board;
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
-import javafx.scene.effect.Bloom;
-import javafx.scene.effect.DropShadow;
-import javafx.scene.effect.Effect;
 import javafx.scene.effect.Lighting;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
-import javafx.scene.paint.Color;
 
 
+import java.io.IOException;
+import java.net.Socket;
 import java.net.URL;
 import java.util.ResourceBundle;
 
 public class CheckersController implements Initializable {
     public static final int TILE_SIZE = 100; //skala
-    final private static Board board = new Board(8);
-    private int countClicks=0;
+    private static Board board = new Board(8);
     private Pawn currentPawn;
+    //int ox,oy;
     @FXML
     private GridPane gpCheckerboard;
 
+    private Client client;
+    private String messageToSend;
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        //ustawiamy szachownice
-        for (int i = 0; i < Board.getSize(); i++) {
-            for (int j = 0; j < Board.getSize(); j++) {
-                Tile tile = new Tile(!isWhite(board.getField(j, i)));
-                gpCheckerboard.add(tile, j, i);
-            }
+        //laczymy klienta
+        try {
+            client = new Client(new Socket("localhost", 12345));
+            System.out.println("connected ");
+            drawCheckers(gpCheckerboard);
+        }catch (IOException e){
+            e.printStackTrace();
         }
-        //ustawiamy pionki
-        drawCheckers(gpCheckerboard);
+
+
+        //client.receiveMessageFromServer();
     }
-    public boolean isWhite(int k) {
+    public static boolean isWhite(int k) {
         return k >= 1;
     }
 
     public void sendCoordinates(MouseEvent e) {
+        //if(twoj ruch){
         if(e.getButton().equals(MouseButton.PRIMARY)) {
-            if(countClicks == 0) {
-                System.out.println("[" + GridPane.getRowIndex((Node) e.getTarget()) + "][" + GridPane.getColumnIndex((Node) e.getTarget()) + "]");
-                //if (checkChecker(GridPane.getRowIndex((Node) e.getTarget()), GridPane.getColumnIndex((Node) e.getTarget()))){
-                if(e.getTarget() instanceof Pawn){
-                    currentPawn = ((Pawn) e.getTarget());
-                    currentPawn.setEffect(new Lighting());
-                }
-                //}
-                System.out.println(countClicks);
-            }
-            countClicks++;
-            if(countClicks==2) {
-                //if(moveChecker(int x, int y)){
-                System.out.println("placing " + countClicks);
-                if(currentPawn!=null) {
-                    currentPawn.setEffect(null);
-                    currentPawn = null;
-                }
-                countClicks = 0;
-                System.out.println("end" + countClicks);
-                //}
-            }
+            if(currentPawn==null && e.getTarget() instanceof Pawn){
+                messageToSend = "";
+                System.out.println("S[" + GridPane.getRowIndex((Node) e.getTarget()) + "][" + GridPane.getColumnIndex((Node) e.getTarget()) + "]");//do serwera
+                messageToSend += GridPane.getRowIndex((Node) e.getTarget());
+                messageToSend += GridPane.getColumnIndex((Node) e.getTarget());
 
+                //if (checkChecker(GridPane.getRowIndex((Node) e.getTarget()), GridPane.getColumnIndex((Node) e.getTarget()))){
+                currentPawn = ((Pawn) e.getTarget());
+                currentPawn.setEffect(new Lighting());
+                //}
+            }
+            if(currentPawn!=null && e.getTarget() instanceof Tile) {
+                //zostaje
+                System.out.println("E[" + GridPane.getRowIndex((Node) e.getTarget()) + "][" + GridPane.getColumnIndex((Node) e.getTarget()) + "]");//do serwera
+                //if(moveChecker(int x, int y)){
+                messageToSend +=GridPane.getRowIndex((Node) e.getTarget());
+                messageToSend += GridPane.getColumnIndex((Node) e.getTarget());
+                messageToSend += currentPawn.testing();
+                //wypada
+                board.setField(currentPawn.getRow(),currentPawn.getCol(),1);
+                board.setField(GridPane.getRowIndex((Node) e.getTarget()),GridPane.getColumnIndex((Node) e.getTarget()), currentPawn.testing() );
+                //zostaje
+                currentPawn.setEffect(null);
+                currentPawn = null;
+                //bedzie sie wykonywac u klienta, nie tu
+                drawCheckers(gpCheckerboard);
+                System.out.println(messageToSend);//do serwera - zmiana gracza
+                client.sendMessageToServer(messageToSend);
+                messageToSend = "";
+                //repaint()
+                //}
+            }
         }
         //resetujemy pionek
         else {
             if(currentPawn!=null) {
+                messageToSend = "";
                 currentPawn.setEffect(null);
                 currentPawn = null;
             }
-            countClicks = 0;
-            System.out.println("discard " + countClicks);
+            System.out.println("discard");
         }
+        //}
     }
-    //rysuje pionki
-    public void drawCheckers(GridPane pane) {
-        for (int j = 0; j < Board.getSize(); j++) {
-            for (int i = 0; i < Board.getSize(); i++) {
-                switch (board.getField(i, j)) {
-                    case 2 -> {
-                        Pawn tempPawn = new Pawn(true, j, i);
-                        pane.add(tempPawn, j, i);
-                    }
-                    case 3 -> {
-                        Pawn tempPawn = new Pawn(false, j, i);
-                        pane.add(tempPawn, j, i);
+    //o-old n-new v-rodzaj pionka
+    //String positions bierze od serwera
+    //rysuje pionki bedzie wywolywane w kliencie wiec musi byc static i korzystac z platform.runlater public void drawCheckers(GridPane pane, String positions(przykladowy wyglad1,1,2,2,1)
+    // ox, oy,nx,ny,v  parseToInteger
+    //potem updatuje aktualny board
+    public static void drawCheckers(GridPane pane) {
+        Platform.runLater(new Runnable() {
+            @Override
+            public void run() {
+                pane.getChildren().clear();
+                //board.setField(ox,oy,1)
+                //board.setField(nx,ny,v)
+                for (int i = 0; i < Board.getSize(); i++) {
+                    for (int j = 0; j < Board.getSize(); j++) {
+                        Tile tile = new Tile(!isWhite(board.getField(j, i)));
+                        pane.add(tile, j, i);
                     }
                 }
+                for (int j = 0; j < pane.getColumnCount(); j++) {
+                    for (int i = 0; i < pane.getRowCount(); i++) {
+                        switch (board.getField(i, j)) {
+                            case 2 -> {
+                                Pawn tempPawn = new Pawn(true, j, i);
+                                pane.add(tempPawn, j, i);
+                            }
+                            case 3 -> {
+                                Pawn tempPawn = new Pawn(false, j, i);
+                                pane.add(tempPawn, j, i);
+                            }
+                        }
+                    }
+                }
+
             }
-        }
+        });
     }
 
 }
