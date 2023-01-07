@@ -4,31 +4,29 @@ import java.io.*;
 import java.net.Socket;
 
 public class ClientHandler implements Runnable {
-    private char mark;
-    private Board board;
+    private final char mark;
     private ClientHandler opponent;
-    private Socket socket;
-    private BufferedReader bufferedReader;
-    private PrintWriter out;
+    private final BufferedReader input;
+    private final PrintWriter output;
 
-    public ClientHandler(Socket socket, Board board, char mark) throws IOException {
-        this.socket = socket;
-        this.board = board;
+    public ClientHandler(Socket socket, char mark) throws IOException {
         this.mark = mark;
+        this.input = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+        this.output = new PrintWriter(socket.getOutputStream(), true);
     }
 
     @Override
     public void run() {
         try{
             setupGame();
-            processCommands();
+            processRequest();
         }catch (IOException e){
             System.err.println("IO in client handler(client left)");
         }
         finally {
-            out.close();
             try {
-                bufferedReader.close();
+                output.close();
+                input.close();
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }
@@ -36,52 +34,36 @@ public class ClientHandler implements Runnable {
     }
 
     private void setupGame() throws IOException{
-        this.bufferedReader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
-        this.out = new PrintWriter(socket.getOutputStream(), true);
-        out.println("WELCOME " + mark);
+        output.println("WELCOME " + mark);
         if(mark == 'W'){
-            board.setCurrentPlayer(this);
-            out.println("MSG waiting for opponent");
-            String currentBoard = board.fieldsToString();
-
-            out.println(currentBoard);//do gracza
+            Model.setCurrentPlayer(this);
+            output.println("MSG waiting for opponent");
+            output.println(Model.fieldsToString());//do gracza
         }
         else {
-            opponent = board.getCurrentPlayer();
+            opponent = Model.getCurrentPlayer();
             opponent.opponent = this;
-            opponent.out.println("MSG Your move");
-            String currentBoard = board.fieldsToString();
-
-            out.println(currentBoard);//do gracza
+            output.println(Model.fieldsToString());//do gracza
         }
     }
 
-    private void processCommands() throws IOException {
+    private void processRequest() throws IOException {
         while (true) {
-            var command = bufferedReader.readLine();
-            if (command.startsWith("QUIT")) {
+            String request = input.readLine();
+            if (request.startsWith("QUIT")) {
                 return;
-            } else {
-                System.out.println(command);
-                int ox = Integer.parseInt(command.substring(0,1));
-                int oy = Integer.parseInt(command.substring(1,2));
-                int nx = Integer.parseInt(command.substring(2,3));
-                int ny = Integer.parseInt(command.substring(3,4));
-
-                board.move(ox,oy,nx,ny,this);
-                String currentBoard = board.fieldsToString();
-
-                out.println(currentBoard);//do gracza
-                opponent.out.println(currentBoard);//do op gracza
+            }
+            else if(Model.getCurrentPlayer().equals(this)){
+                Model.move(
+                        Integer.parseInt(request.substring(0,1)),
+                        Integer.parseInt(request.substring(1,2)),
+                        Integer.parseInt(request.substring(2,3)),
+                        Integer.parseInt(request.substring(3,4))
+                );
+                Model.setCurrentPlayer(opponent);
+                output.println(Model.fieldsToString());//do gracza
+                opponent.output.println(Model.fieldsToString());//do op gracza
             }
         }
-    }
-
-    public ClientHandler getOpponent(){
-        return opponent;
-    }
-
-    public char getMark(){
-        return mark;
     }
 }

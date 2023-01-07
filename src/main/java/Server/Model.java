@@ -2,23 +2,23 @@ package Server;
 
 import static java.lang.Math.abs;
 
-public class Board {
+public class Model {
     private static int[][] fields;
     private static int size;
-    private ClientHandler currentPlayer;
+    private static ClientHandler currentPlayer;
 
-    public Board(int size) {
-        Board.size = size;
+    public Model(int size) {
+        Model.size = size;
         fields = new int [size][size];
         setTiles();
         placeCheckers();
     }
 
-    public void setCurrentPlayer(ClientHandler currentPlayer){
-        this.currentPlayer=currentPlayer;
+    public static void setCurrentPlayer(ClientHandler player){
+        currentPlayer = player;
     }
 
-    public ClientHandler getCurrentPlayer(){
+    public static ClientHandler getCurrentPlayer(){
         return currentPlayer;
     }
     static public int getSize()
@@ -38,7 +38,7 @@ public class Board {
     }
 
     public static void setAllFields(int[][] fields) {
-        Board.fields = fields;
+        Model.fields = fields;
     }
 
     //ustawia kolory na tablicy
@@ -55,7 +55,7 @@ public class Board {
         }
     }
 
-    public String fieldsToString() {
+    public static String fieldsToString() {
         String string = "";
         for(int[] x : fields) {
             for(int y : x)
@@ -84,15 +84,11 @@ public class Board {
         }
     }
 
-    public synchronized boolean move(int x1, int y1, int x2, int y2, ClientHandler player) {
+    public static synchronized boolean move(int x1, int y1, int x2, int y2) {
         //can't move to a white field (1) or other pawn (2,3)
-        if(player!=currentPlayer){
-            return false;
-        }
         if (getField(y2, x2) != 1) {
             return false;
         }
-        currentPlayer = currentPlayer.getOpponent();
             switch (getField(y1, x1)) {
                 //if white pawn
                 case 2 -> {

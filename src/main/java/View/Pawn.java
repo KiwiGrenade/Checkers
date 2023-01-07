@@ -5,15 +5,10 @@ import javafx.scene.shape.Circle;
 
 // 2d representation of a pawn
 public class Pawn extends Circle {
-    private boolean white;
-    private int col;
-    private int row;
 
-    public Pawn (boolean white, int col, int row) {
-        this.white = white;
-        this.col = col;
-        this.row = row;
-        setRadius(CheckersController.TILE_SIZE / 2.0);
-        setFill(white ? Color.valueOf("#fff9f4") : Color.valueOf("#c40003"));
+    public Pawn (boolean white) {
+        super(CheckersController.TILE_SIZE / 2.0,
+                white ? Color.valueOf("#fff9f4") : Color.valueOf("#c40003")
+        );
     }
 }

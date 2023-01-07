@@ -1,46 +1,46 @@
 package Model;
 
-import Server.Board;
+import Server.Model;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class BoardTest {
-    Board board;
+class ModelTest {
+    Model model;
     @AfterEach
     void tearDown() {
     }
 
     @BeforeEach
     void setUp() {
-        board = new Board(8);
+        model = new Model(8);
     }
 
     @Test
     void getSize() {
-        assertEquals(8, Board.getSize());
+        assertEquals(8, Model.getSize());
     }
     @Test
     void getField() {
-        assertEquals(2, Board.getField(7, 0));
-        assertEquals(0, Board.getField(0, 0));
-        assertEquals(0, Board.getField(7, 7));
-        assertEquals(3, Board.getField(0, 7));
+        assertEquals(2, Model.getField(7, 0));
+        assertEquals(0, Model.getField(0, 0));
+        assertEquals(0, Model.getField(7, 7));
+        assertEquals(3, Model.getField(0, 7));
     }
     @Test
     void setField() {
-        Board.setField(6, 2, 18);
-        assertEquals(18, Board.getField(6,2));
+        Model.setField(6, 2, 18);
+        assertEquals(18, Model.getField(6,2));
     }
 
     @Test
     void getAllFields() {
-        Board.setTiles();
-        Board.setField(0, 7, 18);
-        Board.setField(7, 7, 20);
-        Board.setField(7, 0, 30);
+        Model.setTiles();
+        Model.setField(0, 7, 18);
+        Model.setField(7, 7, 20);
+        Model.setField(7, 0, 30);
         int[][] testBoard = {
                 {0, 1, 0, 1, 0, 1, 0, 18},
                 {1, 0, 1, 0, 1, 0, 1, 0},
@@ -49,14 +49,14 @@ class BoardTest {
                 {0, 1, 0, 1, 0, 1, 0, 1},
                 {1, 0, 1, 0, 1, 0, 1, 0},
                 {0, 1, 0, 1, 0, 1, 0, 1},
-                {30, 0, 1, 0, 1, 0, 1, 20},
+                {30, 0, 1, 0, 1, 0, 1, 20}
         };
-        assertArrayEquals(testBoard, Board.getAllFields());
+        assertArrayEquals(testBoard, Model.getAllFields());
     }
 
     @Test
     void setAllFields() {
-        Board.setTiles();
+        Model.setTiles();
         int[][] testBoard = {
                 {0, 1, 0, 1, 0, 1, 0, 18},
                 {1, 0, 1, 0, 1, 0, 1, 0},
@@ -65,15 +65,15 @@ class BoardTest {
                 {0, 1, 0, 1, 0, 1, 0, 1},
                 {1, 0, 1, 0, 1, 0, 1, 0},
                 {0, 1, 0, 1, 0, 1, 0, 1},
-                {30, 0, 1, 0, 1, 0, 1, 20},
+                {30, 0, 1, 0, 1, 0, 1, 20}
         };
-        Board.setAllFields(testBoard);
-        assertArrayEquals(testBoard, Board.getAllFields());
+        Model.setAllFields(testBoard);
+        assertArrayEquals(testBoard, Model.getAllFields());
     }
 
     @Test
     void setTiles() {
-        Board.setTiles();
+        Model.setTiles();
         int[][] testBoard = {
                 {0, 1, 0, 1, 0, 1, 0, 1},
                 {1, 0, 1, 0, 1, 0, 1, 0},
@@ -82,9 +82,9 @@ class BoardTest {
                 {0, 1, 0, 1, 0, 1, 0, 1},
                 {1, 0, 1, 0, 1, 0, 1, 0},
                 {0, 1, 0, 1, 0, 1, 0, 1},
-                {1, 0, 1, 0, 1, 0, 1, 0},
+                {1, 0, 1, 0, 1, 0, 1, 0}
         };
-        assertArrayEquals(testBoard, Board.getAllFields());
+        assertArrayEquals(testBoard, Model.getAllFields());
     }
 
     @Test
@@ -97,9 +97,9 @@ class BoardTest {
                 {0, 1, 0, 1, 0, 1, 0, 1},
                 {2, 0, 2, 0, 2, 0, 2, 0},
                 {0, 2, 0, 2, 0, 2, 0, 2},
-                {2, 0, 2, 0, 2, 0, 2, 0},
+                {2, 0, 2, 0, 2, 0, 2, 0}
         };
-        assertArrayEquals(testBoard, Board.getAllFields());
+        assertArrayEquals(testBoard, Model.getAllFields());
     }
 
     @Test
@@ -113,12 +113,12 @@ class BoardTest {
                 {0, 1, 0, 1, 0, 2, 0, 1},//4
                 {2, 0, 2, 0, 1, 0, 2, 0},//5
                 {0, 2, 0, 2, 0, 2, 0, 2},//6
-                {2, 0, 2, 0, 2, 0, 2, 0},//7
+                {2, 0, 2, 0, 2, 0, 2, 0}//7
         };
-        Board.move(4, 5, 5, 4);
-        assertArrayEquals(testBoard, Board.getAllFields(), "White: move up right");
-        assertFalse(Board.move(5,4, 4,5), "White: move down");
-        assertFalse(Board.move(7,6,6,5), "White: step on pawn");
+        Model.move(4, 5, 5, 4);
+        assertArrayEquals(testBoard, Model.getAllFields(), "White: move up right");
+        assertFalse(Model.move(5,4, 4,5), "White: move down");
+        assertFalse(Model.move(7,6,6,5), "White: step on pawn");
 
         testBoard = new int[][]{
                 //0,1, 2, 3, 4, 5, 6, 7
@@ -129,10 +129,10 @@ class BoardTest {
                 {0, 2, 0, 1, 0, 2, 0, 1},//4
                 {2, 0, 1, 0, 1, 0, 2, 0},//5
                 {0, 2, 0, 2, 0, 2, 0, 2},//6
-                {2, 0, 2, 0, 2, 0, 2, 0},//7
+                {2, 0, 2, 0, 2, 0, 2, 0}//7
         };
-        Board.move(2, 5, 1, 4);
-        assertArrayEquals(testBoard, Board.getAllFields(), "White: move left");
+        Model.move(2, 5, 1, 4);
+        assertArrayEquals(testBoard, Model.getAllFields(), "White: move left");
     }
 
     @Test
@@ -146,12 +146,12 @@ class BoardTest {
                 {0, 1, 0, 1, 0, 1, 0, 1},//4
                 {2, 0, 2, 0, 2, 0, 2, 0},//5
                 {0, 2, 0, 2, 0, 2, 0, 2},//6
-                {2, 0, 2, 0, 2, 0, 2, 0},//7
+                {2, 0, 2, 0, 2, 0, 2, 0}//7
         };
-        Board.move(3, 2, 4, 3);
-        assertArrayEquals(testBoard, Board.getAllFields(), "Black: move up right");
-        assertFalse(Board.move(2, 3, 3, 2), "Black: move down");
-        assertFalse(Board.move(7, 0, 6, 1), "Black: step on pawn");
+        Model.move(3, 2, 4, 3);
+        assertArrayEquals(testBoard, Model.getAllFields(), "Black: move up right");
+        assertFalse(Model.move(2, 3, 3, 2), "Black: move down");
+        assertFalse(Model.move(7, 0, 6, 1), "Black: step on pawn");
 
         testBoard = new int[][]{
                 //0,1, 2, 3, 4, 5, 6, 7
@@ -162,9 +162,9 @@ class BoardTest {
                 {0, 1, 0, 1, 0, 1, 0, 1},//4
                 {2, 0, 2, 0, 2, 0, 2, 0},//5
                 {0, 2, 0, 2, 0, 2, 0, 2},//6
-                {2, 0, 2, 0, 2, 0, 2, 0},//7
+                {2, 0, 2, 0, 2, 0, 2, 0}//7
         };
-        Board.move(7, 2, 6, 3);
+        Model.move(7, 2, 6, 3);
     }
 
     @Test
@@ -179,16 +179,16 @@ class BoardTest {
                 {0, 1, 0, 1, 0, 1, 0, 1},//4
                 {2, 0, 2, 0, 1, 0, 2, 0},//5
                 {0, 2, 0, 2, 0, 2, 0, 2},//6
-                {2, 0, 2, 0, 2, 0, 2, 0},//7
+                {2, 0, 2, 0, 2, 0, 2, 0}//7
         };
-        Board.move(1, 2, 2, 3);
-        Board.move(2, 3, 3, 4);
-        Board.move(4, 5, 2, 3);
-        assertArrayEquals(testBoard, Board.getAllFields(), "White: punch up left");
+        Model.move(1, 2, 2, 3);
+        Model.move(2, 3, 3, 4);
+        Model.move(4, 5, 2, 3);
+        assertArrayEquals(testBoard, Model.getAllFields(), "White: punch up left");
 
 
-        Board.setTiles();
-        Board.placeCheckers();
+        Model.setTiles();
+        Model.placeCheckers();
         testBoard = new int[][]{
                 //0,1, 2, 3, 4, 5, 6, 7
                 {0, 3, 0, 3, 0, 3, 0, 3},//0
@@ -198,12 +198,12 @@ class BoardTest {
                 {0, 1, 0, 1, 0, 1, 0, 1},//4
                 {2, 0, 2, 0, 1, 0, 2, 0},//5
                 {0, 2, 0, 2, 0, 2, 0, 2},//6
-                {2, 0, 2, 0, 2, 0, 2, 0},//7
+                {2, 0, 2, 0, 2, 0, 2, 0}//7
         };
-        Board.move(7, 2, 6, 3);
-        Board.move(6, 3, 5, 4);
-        Board.move(4, 5, 6, 3);
-        assertArrayEquals(testBoard, Board.getAllFields(), "White: punch up right");
+        Model.move(7, 2, 6, 3);
+        Model.move(6, 3, 5, 4);
+        Model.move(4, 5, 6, 3);
+        assertArrayEquals(testBoard, Model.getAllFields(), "White: punch up right");
     }
     @Test
     void punchBlack()
@@ -217,16 +217,16 @@ class BoardTest {
                 {0, 1, 0, 1, 0, 1, 0, 3},//4
                 {2, 0, 2, 0, 1, 0, 2, 0},//5
                 {0, 2, 0, 2, 0, 2, 0, 2},//6
-                {2, 0, 2, 0, 2, 0, 2, 0},//7
+                {2, 0, 2, 0, 2, 0, 2, 0}//7
         };
-        Board.move(4, 5, 5, 4);
-        Board.move(5, 4, 6, 3);
-        Board.move(5, 2, 7, 4);
-        assertArrayEquals(testBoard, Board.getAllFields(), "Black: punch up left");
+        Model.move(4, 5, 5, 4);
+        Model.move(5, 4, 6, 3);
+        Model.move(5, 2, 7, 4);
+        assertArrayEquals(testBoard, Model.getAllFields(), "Black: punch up left");
 
 
-        Board.setTiles();
-        Board.placeCheckers();
+        Model.setTiles();
+        Model.placeCheckers();
         testBoard = new int[][]{
                 //0,1, 2, 3, 4, 5, 6, 7
                 {0, 3, 0, 3, 0, 3, 0, 3},//0
@@ -236,11 +236,11 @@ class BoardTest {
                 {0, 1, 0, 1, 0, 3, 0, 1},//4
                 {2, 0, 2, 0, 1, 0, 2, 0},//5
                 {0, 2, 0, 2, 0, 2, 0, 2},//6
-                {2, 0, 2, 0, 2, 0, 2, 0},//7
+                {2, 0, 2, 0, 2, 0, 2, 0}//7
         };
-        Board.move(4, 5, 5, 4);
-        Board.move(5, 4, 6, 3);
-        Board.move(7, 2, 5, 4);
-        assertArrayEquals(testBoard, Board.getAllFields(), "Black: punch up right");
+        Model.move(4, 5, 5, 4);
+        Model.move(5, 4, 6, 3);
+        Model.move(7, 2, 5, 4);
+        assertArrayEquals(testBoard, Model.getAllFields(), "Black: punch up right");
     }
 }

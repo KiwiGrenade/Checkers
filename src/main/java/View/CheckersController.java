@@ -33,9 +33,6 @@ public class CheckersController implements Initializable {
         }
         client.receiveMessageFromServer(gpCheckerboard);
     }
-    public static boolean isWhite(int k) {
-        return k >= 1;
-    }
 
     public void sendCoordinates(MouseEvent e) {
         if(e.getButton().equals(MouseButton.PRIMARY)) {
@@ -81,35 +78,32 @@ public class CheckersController implements Initializable {
         return board;
     }
 
-    public static void drawCheckers(GridPane pane, String board) {
-        int actualBoardSize = (int) Math.sqrt(board.length());
-        int[][] actualBoard = strToBoard(board);
-        Platform.runLater(new Runnable() {
-            @Override
-            public void run() {
-                pane.getChildren().clear();
-                for (int j = 0; j < actualBoardSize; j++) {
-                    for (int i = 0; i < actualBoardSize; i++) {
-                        Tile tile = new Tile(!isWhite(actualBoard[j][i]));
-                        pane.add(tile, j, i);
-                    }
+    public static void drawCheckers(GridPane pane, String string) {
+        int boardSize = (int) Math.sqrt(string.length());
+        int[][] board = strToBoard(string);
+        Platform.runLater(() -> {
+            pane.getChildren().clear();
+            for (int j = 0; j < boardSize; j++) {
+                for (int i = 0; i < boardSize; i++) {
+                    Tile tile = new Tile(board[j][i] < 1);
+                    pane.add(tile, j, i);
                 }
-                for (int j = 0; j < actualBoardSize; j++) {
-                    for (int i = 0; i < actualBoardSize; i++) {
-                        switch (actualBoard[j][i]) {
-                            case 2 -> {
-                                Pawn tempPawn = new Pawn(true, j, i);
-                                pane.add(tempPawn, j, i);
-                            }
-                            case 3 -> {
-                                Pawn tempPawn = new Pawn(false, j, i);
-                                pane.add(tempPawn, j, i);
-                            }
+            }
+            for (int j = 0; j < boardSize; j++) {
+                for (int i = 0; i < boardSize; i++) {
+                    switch (board[j][i]) {
+                        case 2 -> {
+                            Pawn tempPawn = new Pawn(true);
+                            pane.add(tempPawn, j, i);
+                        }
+                        case 3 -> {
+                            Pawn tempPawn = new Pawn(false);
+                            pane.add(tempPawn, j, i);
                         }
                     }
                 }
-
             }
+
         });
     }
 }

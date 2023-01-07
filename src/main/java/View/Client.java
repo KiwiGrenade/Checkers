@@ -20,7 +20,7 @@ public class Client {
         }catch (IOException e){
             System.out.println("Error creating client");
             e.printStackTrace();
-            closeEverything(socket, bufferedWriter,bufferedReader);
+            closeEverything();
         }
     }
 
@@ -31,7 +31,7 @@ public class Client {
             bufferedWriter.flush();
         }catch (IOException e){
             e.printStackTrace();
-            closeEverything(socket, bufferedWriter, bufferedReader);
+            closeEverything();
         }
     }
 
@@ -47,7 +47,7 @@ public class Client {
                 }catch (IOException e){
                     e.printStackTrace();
                     System.out.println("Error receiving message from server");
-                    closeEverything(socket,bufferedWriter,bufferedReader);
+                    closeEverything();
                     break;
                 }
             }
@@ -58,7 +58,7 @@ public class Client {
         thread.start();
     }
 
-    public void closeEverything(Socket socket, BufferedWriter bufferedWriter, BufferedReader bufferedReader){
+    public void closeEverything(){
         try {
             if(bufferedWriter!=null){
                 bufferedWriter.close();
