@@ -25,10 +25,10 @@ class BlackPawnTest {
                 {0, 2, 0, 2, 0, 2, 0, 2},//6
                 {2, 0, 2, 0, 2, 0, 2, 0}//7
         };
-        Model.newMove(3, 2, 4, 3);
+        Model.playerMove(3, 2, 4, 3);
         assertArrayEquals(testBoard, Model.getAllFields(), "Black: move left");
-        assertFalse(Model.newMove(4,3, 3,2), "Black: move down");
-        assertFalse(Model.newMove(7,0,6,1), "Black: step on pawn");
+        assertFalse(Model.playerMove(4,3, 3,2), "Black: move down");
+        assertFalse(Model.playerMove(7,0,6,1), "Black: step on pawn");
 
         testBoard = new int[][]{
                 //0,1, 2, 3, 4, 5, 6, 7
@@ -41,7 +41,7 @@ class BlackPawnTest {
                 {0, 2, 0, 2, 0, 2, 0, 2},//6
                 {2, 0, 2, 0, 2, 0, 2, 0}//7
         };
-        Model.newMove(4, 3, 3, 4);
+        Model.playerMove(4, 3, 3, 4);
         assertArrayEquals(testBoard, Model.getAllFields(), "Black: move right");
     }
 

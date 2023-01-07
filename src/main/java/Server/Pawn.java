@@ -1,6 +1,6 @@
 package Server;
 
-public abstract class Pawn implements moves{
+public abstract class Pawn implements Moves {
     protected int x1;
     protected int y1;
     protected int color;

@@ -9,24 +9,25 @@ public class Model {
 
     public Model(int size) {
         Model.size = size;
-        fields = new int [size][size];
+        fields = new int[size][size];
         setTiles();
         placeCheckers();
     }
 
-    public static void setCurrentPlayer(ClientHandler player){
+    public static void setCurrentPlayer(ClientHandler player) {
         currentPlayer = player;
     }
 
-    public static ClientHandler getCurrentPlayer(){
+    public static ClientHandler getCurrentPlayer() {
         return currentPlayer;
     }
-    static public int getSize()
-    {
+
+    static public int getSize() {
         return size;
     }
+
     public static int getField(int row, int col) {
-        if(row < 0 || row > 7 || col < 0 || col > 7) {
+        if (row < 0 || row > 7 || col < 0 || col > 7) {
             return -1;
         }
         return fields[row][col];
@@ -48,7 +49,7 @@ public class Model {
     public static void setTiles() {
         for (int i = 0; i < size; i++) {
             for (int j = 0; j < size; j++) {
-                if((i + j) % 2 == 1)
+                if ((i + j) % 2 == 1)
                     //black
                     fields[i][j] = 1;
                 else
@@ -60,9 +61,8 @@ public class Model {
 
     public static String fieldsToString() {
         String string = "";
-        for(int[] x : fields) {
-            for(int y : x)
-            {
+        for (int[] x : fields) {
+            for (int y : x) {
                 string = string.concat(Integer.toString(y));
             }
         }
@@ -71,15 +71,15 @@ public class Model {
     }
 
     //ustawia pionki 2 - biale 3 - czarne
-    public static void placeCheckers(){
-        for(int i = size - 3; i < size; i++) {
+    public static void placeCheckers() {
+        for (int i = size - 3; i < size; i++) {
             for (int j = 0; j < size; j++) {
                 if (fields[i][j] == 1)
                     fields[i][j] = 2;
             }
         }
 
-        for(int i = 0; i < 3; i++) {
+        for (int i = 0; i < 3; i++) {
             for (int j = 0; j < size; j++) {
                 if (fields[i][j] == 1)
                     fields[i][j] = 3;
@@ -87,8 +87,8 @@ public class Model {
         }
     }
 
-    public static boolean checkPlayer(int x1, int y1){
-        if(currentPlayer.getMark() == 'W')
+    public static boolean checkPlayer(int x1, int y1) {
+        if (currentPlayer.getMark() == 'W')
             return getField(y1, x1) == 2;
 
         else
@@ -96,7 +96,7 @@ public class Model {
 
     }
 
-    public static synchronized boolean newMove(int x1, int y1, int x2, int y2) {
+    public static synchronized boolean playerMove(int x1, int y1, int x2, int y2) {
         //can't move to a white field (1) or other pawn (2,3)
         if (getField(y2, x2) != 1 || getField(y1, x1) < 2) {
             return false;
@@ -112,81 +112,5 @@ public class Model {
             }
         }
         return pawn.move(x2, y2);
-    }
-
-    public static synchronized boolean move(int x1, int y1, int x2, int y2) {
-        //can't move to a white field (1) or other pawn (2,3)
-        if (getField(y2, x2) != 1) {
-            return false;
-        }
-        switch (getField(y1, x1)) {
-            //if white pawn
-            case 2 -> {
-                return moveAccToColor(x1, y1, x2, y2, 2);
-            }
-            //if black pawn
-            case 3 -> {
-                return moveAccToColor(x1, y1, x2, y2, 3);
-            }
-            //if something else
-            default -> {
-                return false;
-            }
-        }
-    }
-
-    //pawnColor - (2) white - (3) black
-    private static boolean moveAccToColor(int x1, int y1, int x2, int y2, int pawnColor)
-    {
-        switch(abs(x1-x2)){
-            //if destination is "sideways" by
-            case 1 -> {
-                //normal move
-                //check if move is "upwards"
-                if((y1 - y2 == 1 && pawnColor == 2) ||
-                    (y1 - y2 == -1 && pawnColor == 3)) {
-                    setField(y1, x1, 1);
-                    setField(y2, x2, pawnColor);
-                    return true;
-                }
-                else {
-                    return false;
-                }
-            }
-            case 2 -> {
-                return punch(x1, y1, x2, y2, pawnColor);
-            }
-            default -> {
-                return false;
-            }
-        }
-    }
-
-    private static boolean punch(int x1, int y1, int x2, int y2, int pawnColor)
-    {
-        if(x2 > x1 && y2 < y1) {
-            setField(y1, x1, 1);
-            setField(y1 - 1, x1 + 1, 1);
-            setField(y2, x2, pawnColor);
-        }
-        else if(x2 < x1 && y2 < y1) {
-            setField(y1, x1, 1);
-            setField(y1 - 1, x1 - 1, 1);
-            setField(y2, x2, pawnColor);
-        }
-        else if(x2 < x1 && y2 > y1) {
-            setField(y1, x1, 1);
-            setField(y1 + 1, x1 - 1, 1);
-            setField(y2, x2, pawnColor);
-        }
-        else if(x2 > x1 && y2 > y1) {
-            setField(y1, x1, 1);
-            setField(y1 + 1, x1 + 1, 1);
-            setField(y2, x2, pawnColor);
-        }
-        else {
-            return false;
-        }
-        return false;
     }
 }
