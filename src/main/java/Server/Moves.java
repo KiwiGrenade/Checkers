@@ -9,5 +9,6 @@ public interface Moves {
     boolean isPunchDownRightAvi();
     boolean punch(int x, int y);
     boolean normalMove(int x, int y);
-    boolean isLastRow(int x, int y);
+    boolean isLastRow(int y);
+    void changePosition(int x, int y);
 }
