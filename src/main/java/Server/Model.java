@@ -6,8 +6,6 @@ public class Model {
     private static int[][] fields;
     private static int size;
     private static ClientHandler currentPlayer;
-    private int currentX;
-    private int currentY;
 
     public Model(int size) {
         Model.size = size;
