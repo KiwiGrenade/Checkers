@@ -1,6 +1,6 @@
 package Server;
 
-public class BlackQueen extends BlackPawn implements Moves {
+public class BlackQueen extends BlackPawn {
     public BlackQueen(int x1, int y1) {
         super(x1, y1);
     }

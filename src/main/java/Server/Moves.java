@@ -1,12 +1,13 @@
 package Server;
 
 public interface Moves {
-    public boolean move(int x2, int y2);
-    public boolean isPunchAvi();
-    public boolean isPunchUpLeftAvi();
-    public boolean isPunchUpRightAvi();
-    public boolean isPunchDownLeftAvi();
-    public boolean isPunchDownRightAvi();
-    public boolean punch(int x2, int y2);
-    public boolean normalMove(int x2, int y2);
+    boolean move(int x2, int y2);
+    boolean isPunchAvi();
+    boolean isPunchUpLeftAvi();
+    boolean isPunchUpRightAvi();
+    boolean isPunchDownLeftAvi();
+    boolean isPunchDownRightAvi();
+    boolean punch(int x, int y);
+    boolean normalMove(int x, int y);
+    boolean isLastRow(int x, int y);
 }
