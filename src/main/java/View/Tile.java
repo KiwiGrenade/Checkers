@@ -8,7 +8,7 @@ public class Tile extends Rectangle {
     public Tile(boolean white) {
         super(CheckersController.TILE_SIZE,
                 CheckersController.TILE_SIZE,
-                white ? Color.valueOf("#feb") : Color.valueOf("#582")
+                white ? Color.valueOf("#feb") : Color.valueOf("#654010")
         );
     }
 }

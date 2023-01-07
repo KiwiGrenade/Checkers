@@ -1,6 +1,28 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.RowConstraints?>
 <GridPane fx:id="gpCheckerboard" fx:controller="View.CheckersController"
-          xmlns:fx="http://javafx.com/fxml" onMouseClicked="#sendCoordinates">
+          xmlns:fx="http://javafx.com/fxml" alignment="CENTER" onMouseClicked="#sendCoordinates">
+    <columnConstraints>
+        <ColumnConstraints halignment="CENTER" />
+        <ColumnConstraints halignment="CENTER" />
+        <ColumnConstraints halignment="CENTER" />
+        <ColumnConstraints halignment="CENTER" />
+        <ColumnConstraints halignment="CENTER" />
+        <ColumnConstraints halignment="CENTER" />
+        <ColumnConstraints halignment="CENTER" />
+        <ColumnConstraints halignment="CENTER" />
+    </columnConstraints>
+    <rowConstraints>
+        <RowConstraints valignment="CENTER"/>
+        <RowConstraints valignment="CENTER"/>
+        <RowConstraints valignment="CENTER"/>
+        <RowConstraints valignment="CENTER"/>
+        <RowConstraints valignment="CENTER"/>
+        <RowConstraints valignment="CENTER"/>
+        <RowConstraints valignment="CENTER"/>
+        <RowConstraints valignment="CENTER"/>
+    </rowConstraints>
 </GridPane>
 
