@@ -56,7 +56,7 @@ public class ClientHandler implements Runnable {
             else if(Model.getCurrentPlayer().equals(this)){
                 if(Model.checkPlayer(Integer.parseInt(request.substring(0, 1)),Integer.parseInt(request.substring(1, 2)))) {
                     if(
-                            Model.move(
+                            Model.newMove(
                             Integer.parseInt(request.substring(0, 1)),
                             Integer.parseInt(request.substring(1, 2)),
                             Integer.parseInt(request.substring(2, 3)),
