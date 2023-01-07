@@ -165,6 +165,7 @@ class ModelTest {
                 {2, 0, 2, 0, 2, 0, 2, 0}//7
         };
         Model.move(7, 2, 6, 3);
+        assertArrayEquals(testBoard, Model.getAllFields(), "Black: move left");
     }
 
     @Test

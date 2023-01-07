@@ -26,6 +26,9 @@ public class Model {
         return size;
     }
     public static int getField(int row, int col) {
+        if(row < 0 || row > 7 || col < 0 || col > 7) {
+            return -1;
+        }
         return fields[row][col];
     }
 
@@ -93,25 +96,43 @@ public class Model {
 
     }
 
+    public static synchronized boolean newMove(int x1, int y1, int x2, int y2) {
+        //can't move to a white field (1) or other pawn (2,3)
+        if (getField(y2, x2) != 1 || getField(y1, x1) < 2) {
+            return false;
+        }
+        Pawn pawn;
+        switch (getField(y1, x1)) {
+            case 2 -> pawn = new WhitePawn(x1, y1);
+            case 3 -> pawn = new BlackPawn(x1, y1);
+            case 4 -> pawn = new WhiteQueen(x1, y1);
+            case 5 -> pawn = new BlackQueen(x1, y1);
+            default -> {
+                return false;
+            }
+        }
+        return pawn.move(x2, y2);
+    }
+
     public static synchronized boolean move(int x1, int y1, int x2, int y2) {
         //can't move to a white field (1) or other pawn (2,3)
         if (getField(y2, x2) != 1) {
             return false;
         }
-                switch (getField(y1, x1)) {
-                    //if white pawn
-                    case 2 -> {
-                        return moveAccToColor(x1, y1, x2, y2, 2);
-                    }
-                    //if black pawn
-                    case 3 -> {
-                        return moveAccToColor(x1, y1, x2, y2, 3);
-                    }
-                    //if something else
-                    default -> {
-                        return false;
-                    }
-                }
+        switch (getField(y1, x1)) {
+            //if white pawn
+            case 2 -> {
+                return moveAccToColor(x1, y1, x2, y2, 2);
+            }
+            //if black pawn
+            case 3 -> {
+                return moveAccToColor(x1, y1, x2, y2, 3);
+            }
+            //if something else
+            default -> {
+                return false;
+            }
+        }
     }
 
     //pawnColor - (2) white - (3) black
@@ -163,10 +184,9 @@ public class Model {
             setField(y1 + 1, x1 + 1, 1);
             setField(y2, x2, pawnColor);
         }
-        else
-        {
+        else {
             return false;
         }
-        return true;
+        return false;
     }
 }
