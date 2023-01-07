@@ -9,21 +9,6 @@ public class Pawn extends Circle {
     private int col;
     private int row;
 
-    public int getCol() {
-        return col;
-    }
-
-    public int getRow() {
-        return row;
-    }
-
-    public int testing(){
-        if(white)
-            return 2;
-        else
-            return 3;
-    }
-
     public Pawn (boolean white, int col, int row) {
         this.white = white;
         this.col = col;

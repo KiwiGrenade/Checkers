@@ -7,7 +7,6 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 
-//przykladowy widok szachownicy, w przyszlosci kontroler bedzie odpowiadal za komunikacje
 public class CheckersView extends Application {
 
     @Override

@@ -1,16 +1,25 @@
-package Model;
+package Server;
 
 import static java.lang.Math.abs;
 
 public class Board {
     private static int[][] fields;
     private static int size;
+    private ClientHandler currentPlayer;
 
     public Board(int size) {
         Board.size = size;
         fields = new int [size][size];
         setTiles();
         placeCheckers();
+    }
+
+    public void setCurrentPlayer(ClientHandler currentPlayer){
+        this.currentPlayer=currentPlayer;
+    }
+
+    public ClientHandler getCurrentPlayer(){
+        return currentPlayer;
     }
     static public int getSize()
     {
@@ -46,6 +55,18 @@ public class Board {
         }
     }
 
+    public String fieldsToString() {
+        String string = "";
+        for(int[] x : fields) {
+            for(int y : x)
+            {
+                string = string.concat(Integer.toString(y));
+            }
+        }
+        System.out.println(string);
+        return string;
+    }
+
     //ustawia pionki 2 - biale 3 - czarne
     public static void placeCheckers(){
         for(int i = size - 3; i < size; i++) {
@@ -63,26 +84,29 @@ public class Board {
         }
     }
 
-    public static boolean move(int x1, int y1, int x2, int y2) {
+    public synchronized boolean move(int x1, int y1, int x2, int y2, ClientHandler player) {
         //can't move to a white field (1) or other pawn (2,3)
+        if(player!=currentPlayer){
+            return false;
+        }
         if (getField(y2, x2) != 1) {
             return false;
         }
-
-        switch (getField(y1, x1)) {
-            //if white pawn
-            case 2 -> {
-                return moveAccToColor(x1, y1, x2, y2,2);
+        currentPlayer = currentPlayer.getOpponent();
+            switch (getField(y1, x1)) {
+                //if white pawn
+                case 2 -> {
+                        return moveAccToColor(x1, y1, x2, y2, 2);
+                }
+                //if black pawn
+                case 3 -> {
+                        return moveAccToColor(x1, y1, x2, y2, 3);
+                }
+                //if something else
+                default -> {
+                    return false;
+                }
             }
-            //if black pawn
-            case 3 -> {
-                return moveAccToColor(x1, y1, x2, y2, 3);
-            }
-            //if something else
-            default -> {
-                return false;
-            }
-        }
     }
 
     //pawnColor - (2) white - (3) black
