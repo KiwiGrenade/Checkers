@@ -6,6 +6,8 @@ public class Model {
     private static int[][] fields;
     private static int size;
     private static ClientHandler currentPlayer;
+    private int currentX;
+    private int currentY;
 
     public Model(int size) {
         Model.size = size;
@@ -84,25 +86,34 @@ public class Model {
         }
     }
 
+    public static boolean checkPlayer(int x1, int y1){
+        if(currentPlayer.getMark() == 'W')
+            return getField(y1, x1) == 2;
+
+        else
+            return getField(y1, x1) == 3;
+
+    }
+
     public static synchronized boolean move(int x1, int y1, int x2, int y2) {
         //can't move to a white field (1) or other pawn (2,3)
         if (getField(y2, x2) != 1) {
             return false;
         }
-            switch (getField(y1, x1)) {
-                //if white pawn
-                case 2 -> {
+                switch (getField(y1, x1)) {
+                    //if white pawn
+                    case 2 -> {
                         return moveAccToColor(x1, y1, x2, y2, 2);
-                }
-                //if black pawn
-                case 3 -> {
+                    }
+                    //if black pawn
+                    case 3 -> {
                         return moveAccToColor(x1, y1, x2, y2, 3);
+                    }
+                    //if something else
+                    default -> {
+                        return false;
+                    }
                 }
-                //if something else
-                default -> {
-                    return false;
-                }
-            }
     }
 
     //pawnColor - (2) white - (3) black

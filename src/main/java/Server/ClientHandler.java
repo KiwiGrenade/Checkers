@@ -54,16 +54,23 @@ public class ClientHandler implements Runnable {
                 return;
             }
             else if(Model.getCurrentPlayer().equals(this)){
-                Model.move(
-                        Integer.parseInt(request.substring(0,1)),
-                        Integer.parseInt(request.substring(1,2)),
-                        Integer.parseInt(request.substring(2,3)),
-                        Integer.parseInt(request.substring(3,4))
-                );
-                Model.setCurrentPlayer(opponent);
-                output.println(Model.fieldsToString());//do gracza
-                opponent.output.println(Model.fieldsToString());//do op gracza
+
+                if(Model.checkPlayer(Integer.parseInt(request.substring(0, 1)),Integer.parseInt(request.substring(1, 2)))) {
+                    Model.move(
+                            Integer.parseInt(request.substring(0, 1)),
+                            Integer.parseInt(request.substring(1, 2)),
+                            Integer.parseInt(request.substring(2, 3)),
+                            Integer.parseInt(request.substring(3, 4))
+                    );
+                    Model.setCurrentPlayer(opponent);
+                    output.println(Model.fieldsToString());//do gracza
+                    opponent.output.println(Model.fieldsToString());//do op gracza
+                }
             }
         }
+    }
+
+    public char getMark(){
+        return this.mark;
     }
 }
