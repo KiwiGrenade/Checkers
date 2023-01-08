@@ -1,8 +1,8 @@
 package Server;
 
-public class WhiteQueen extends WhitePawn{
+public class WhiteQueen extends Queen{
     public WhiteQueen(int x1, int y1) {
-        super(x1, y1);
+        super(x1, y1 , 4);
     }
 
     @Override
@@ -11,28 +11,28 @@ public class WhiteQueen extends WhitePawn{
     }
 
     @Override
-    public boolean isPunchAvi() {
-        return super.isPunchAvi();
+    public boolean isPunchAvi(int x, int y, int color) {
+        return super.isPunchAvi(x, y, color);
     }
 
     @Override
-    public boolean isPunchUpLeftAvi() {
-        return super.isPunchUpLeftAvi();
+    public boolean isPunchUpLeftAvi(int x, int y, int color) {
+        return super.isPunchUpLeftAvi(x, y, color);
     }
 
     @Override
-    public boolean isPunchUpRightAvi() {
-        return super.isPunchUpRightAvi();
+    public boolean isPunchUpRightAvi(int x, int y, int color) {
+        return super.isPunchUpRightAvi(x, y, color);
     }
 
     @Override
-    public boolean isPunchDownLeftAvi() {
-        return super.isPunchDownLeftAvi();
+    public boolean isPunchDownLeftAvi(int x, int y, int color) {
+        return super.isPunchDownLeftAvi(x, y, color);
     }
 
     @Override
-    public boolean isPunchDownRightAvi() {
-        return super.isPunchDownRightAvi();
+    public boolean isPunchDownRightAvi(int x, int y, int color) {
+        return super.isPunchDownRightAvi(x, y, color);
     }
 
     @Override
