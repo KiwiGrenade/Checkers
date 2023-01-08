@@ -8,6 +8,7 @@ import javafx.scene.effect.Lighting;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
+import javafx.scene.paint.Color;
 
 
 import java.io.IOException;
@@ -100,10 +101,19 @@ public class CheckersController implements Initializable {
                             Pawn tempPawn = new Pawn(false);
                             pane.add(tempPawn, j, i);
                         }
+                        case 4 -> {
+                            Pawn tempPawm = new Pawn(true);
+                            tempPawm.setStroke(Color.BLUE);
+                            pane.add(tempPawm,j,i);
+                        }
+                        case 5 -> {
+                            Pawn tempPawm = new Pawn(false);
+                            tempPawm.setStroke(Color.BLUE);
+                            pane.add(tempPawm,j,i);
+                        }
                     }
                 }
             }
-
         });
     }
 }
