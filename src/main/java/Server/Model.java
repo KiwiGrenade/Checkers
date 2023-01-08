@@ -7,6 +7,8 @@ public class Model {
     private static int size;
     private static ClientHandler currentPlayer;
 
+    public static Pawn pawn;
+
     public Model(int size) {
         Model.size = size;
         fields = new int[size][size];
@@ -98,23 +100,35 @@ public class Model {
 
     }
 
-    public static synchronized boolean playerMove(int x1, int y1, int x2, int y2) {
+    public static int playerMove(int x1, int y1, int x2, int y2) {
         //can't move to a white field (1) or other pawn (2,3)
         if (getField(y2, x2) != 1 || getField(y1, x1) < 2) {
-            return false;
+            return 0;
         }
-        Pawn pawn;
         switch (getField(y1, x1)) {
             case 2 -> pawn = new WhitePawn(x1, y1);
             case 3 -> pawn = new BlackPawn(x1, y1);
             case 4 -> pawn = new WhiteQueen(x1, y1);
             case 5 -> pawn = new BlackQueen(x1, y1);
             default -> {
-                return false;
+                return 0;
             }
         }
+        //multiple punches
         if(pawn.punch(x2, y2)) {
+            if(pawn.isPunchAvi(x2, y2, getField(y2, x2))) {
+                return 2;
+            }
+            if(pawn.isLastRow(y2)) {
+                setField(y2, x2, getField(y2, x2) == 2 ? 4 : 5);
+            }
+            return 1;
         }
-        return pawn.move(x2, y2);
+        else if (pawn.normalMove(x2, y2)) {
+            return 1;
+        }
+        else{
+            return 0;
+        }
     }
 }

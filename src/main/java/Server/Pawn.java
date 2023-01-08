@@ -13,23 +13,20 @@ public class Pawn implements Moves {
         this.y1 = y1;
         this.color = color;
     }
-    @Override
-    public boolean move(int x2, int y2) {
-        boolean result;
-        switch(abs(x1 - x2)){
-            case 1 -> result = normalMove(x2, y2);
-            case 2 -> result = punch(x2, y2);
-            default -> {
-                return false;
-            }
-        }
-
-        //TODO create a test for this functionality
-        if(result && isLastRow(y2)) {
-            setField(y2, x2, color == 2 ? 4 : 5);
-        }
-        return result;
-    }
+//    @Override
+//    public boolean move(int x2, int y2) {
+//        boolean result;
+//        switch(1){
+//            case 1 -> result = normalMove(x2, y2);
+//            case 2 -> result = punch(x2, y2);
+//            default -> {
+//                return false;
+//            }
+//        }
+//
+//        //TODO create a test for this functionality
+//
+//    }
     @Override
     public boolean isPunchAvi(int x, int y, int color) {
         return isPunchDownLeftAvi(x, y, color) ||
@@ -149,7 +146,10 @@ public class Pawn implements Moves {
 
     @Override
     public boolean normalMove(int x2, int y2) {
-        if ((y1 - y2 == 1 && color == 2) ||
+        if(abs(x1 - x2) != 1) {
+            return false;
+        }
+        else if ((y1 - y2 == 1 && color == 2) ||
                 (y1 - y2 == -1 && color == 3))
         {
             changePosition(x2, y2);

@@ -55,14 +55,24 @@ public class ClientHandler implements Runnable {
             }
             else if(Model.getCurrentPlayer().equals(this)){
                 if(Model.checkPlayer(Integer.parseInt(request.substring(0, 1)),Integer.parseInt(request.substring(1, 2)))) {
-                    if(
+                    switch(
                             Model.playerMove(
                             Integer.parseInt(request.substring(0, 1)),
                             Integer.parseInt(request.substring(1, 2)),
                             Integer.parseInt(request.substring(2, 3)),
-                            Integer.parseInt(request.substring(3, 4))
-                    )) {
-                        Model.setCurrentPlayer(opponent);
+                            Integer.parseInt(request.substring(3, 4))))
+                    {
+                        //poprawny ruch
+                        case 1 -> {
+                            Model.setCurrentPlayer(opponent);
+                        }
+//                        //bicie z możliwością bicia
+//                        case 2 -> {
+//
+//                        }
+                        default -> {
+                            System.out.println("ERROR");
+                        }
                     }
                     output.println(Model.fieldsToString());//do gracza
                     opponent.output.println(Model.fieldsToString());//do op gracza

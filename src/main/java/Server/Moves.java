@@ -1,7 +1,6 @@
 package Server;
 
 public interface Moves {
-    boolean move(int x2, int y2);
     boolean isPunchAvi(int x, int y, int color);
     boolean isPunchUpLeftAvi(int x, int y, int color);
     boolean isPunchUpRightAvi(int x, int y, int color);

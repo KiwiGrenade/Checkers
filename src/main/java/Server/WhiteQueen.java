@@ -6,11 +6,6 @@ public class WhiteQueen extends Queen{
     }
 
     @Override
-    public boolean move(int x2, int y2) {
-        return false;
-    }
-
-    @Override
     public boolean isPunchAvi(int x, int y, int color) {
         return super.isPunchAvi(x, y, color);
     }

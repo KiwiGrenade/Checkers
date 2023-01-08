@@ -5,10 +5,6 @@ public class BlackQueen extends Queen {
         super(x1, y1, 5);
     }
 
-    @Override
-    public boolean move(int x2, int y2) {
-        return false;
-    }
 
     @Override
     public boolean isPunchAvi(int x, int y, int color) {

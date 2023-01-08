@@ -9,19 +9,6 @@ public class Queen extends Pawn{
     }
 
     @Override
-    public boolean move(int x2, int y2) {
-        if(punch(x2, y2)) {
-            return true;
-        }
-        else if(normalMove(x2, y2)) {
-            return true;
-        }
-        else {
-            return false;
-        }
-    }
-
-    @Override
     public boolean isPunchUpLeftAvi(int x, int y, int color) {
         for (x = x1, y = y1; x >= 0; x--, y--) {
             if(super.isPunchUpLeftAvi(x, y, color)) {
