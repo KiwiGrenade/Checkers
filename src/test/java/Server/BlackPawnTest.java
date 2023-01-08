@@ -43,14 +43,41 @@ class BlackPawnTest {
         };
         Model.playerMove(4, 3, 3, 4);
         assertArrayEquals(testBoard, Model.getAllFields(), "Black: move right");
+
+        testBoard = new int[][]{
+                //0,1, 2, 3, 4, 5, 6, 7
+                {0, 3, 0, 3, 0, 3, 0, 3},//0
+                {3, 0, 3, 0, 3, 0, 3, 0},//1
+                {0, 3, 0, 3, 0, 3, 0, 3},//2
+                {1, 0, 1, 0, 1, 0, 1, 0},//3
+                {0, 1, 0, 1, 0, 3, 0, 1},//4
+                {2, 0, 2, 0, 2, 0, 2, 0},//5
+                {0, 2, 0, 3, 0, 2, 0, 2},//6
+                {2, 0, 1, 0, 2, 0, 2, 0}//7
+        };
+        Model.setAllFields(testBoard);
+        Pawn pawn = new BlackPawn(3, 6);
+        pawn.move(2, 7);
+        testBoard = new int[][] {
+                //0,1, 2, 3, 4, 5, 6, 7
+                {0, 3, 0, 3, 0, 3, 0, 3},//0
+                {3, 0, 3, 0, 3, 0, 3, 0},//1
+                {0, 3, 0, 3, 0, 3, 0, 3},//2
+                {1, 0, 1, 0, 1, 0, 1, 0},//3
+                {0, 1, 0, 1, 0, 3, 0, 1},//4
+                {2, 0, 2, 0, 2, 0, 2, 0},//5
+                {0, 2, 0, 1, 0, 2, 0, 2},//6
+                {2, 0, 5, 0, 2, 0, 2, 0}//7
+        };
+        assertArrayEquals(testBoard, Model.getAllFields(), "Change to BlackQueen not working");
     }
 
     @Test
     void isPunchAvi() {
         Pawn pawn = new BlackPawn(0, 0);
-        assertFalse(pawn.isPunchAvi());
+        assertFalse(pawn.isPunchAvi(0, 0, pawn.color));
         pawn = new BlackPawn(0, 7);
-        assertFalse(pawn.isPunchAvi());
+        assertFalse(pawn.isPunchAvi(0, 7, pawn.color));
     }
 
     //TODO change isPunchAvi... for blackpawn
@@ -69,7 +96,7 @@ class BlackPawnTest {
         };
         Model.setAllFields(testBoard);
         Pawn pawn = new BlackPawn(4, 5);
-        assertTrue(pawn.isPunchUpLeftAvi());
+        assertTrue(pawn.isPunchUpLeftAvi(pawn.x1, pawn.y1, pawn.color));
     }
 
     @Test
@@ -87,7 +114,7 @@ class BlackPawnTest {
         };
         Model.setAllFields(testBoard);
         Pawn pawn = new BlackPawn(4, 5);
-        assertTrue(pawn.isPunchUpRightAvi());
+        assertTrue(pawn.isPunchUpRightAvi(pawn.x1, pawn.y1, pawn.color));
     }
 
     @Test
@@ -105,7 +132,7 @@ class BlackPawnTest {
         };
         Model.setAllFields(testBoard);
         Pawn pawn = new BlackPawn(6, 3);
-        assertTrue(pawn.isPunchDownLeftAvi());
+        assertTrue(pawn.isPunchDownLeftAvi(pawn.x1, pawn.y1, pawn.color));
     }
 
     @Test
@@ -123,7 +150,7 @@ class BlackPawnTest {
         };
         Model.setAllFields(testBoard);
         Pawn pawn = new BlackPawn(4, 3);
-        assertTrue(pawn.isPunchDownRightAvi());
+        assertTrue(pawn.isPunchDownRightAvi(pawn.x1, pawn.y1, pawn.color));
     }
 
     @Test

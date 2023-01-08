@@ -20,38 +20,37 @@ public class Pawn implements Moves {
             case 1 -> result = normalMove(x2, y2);
             case 2 -> result = punch(x2, y2);
             default -> {
-                System.out.println("Wrong distance!");
                 return false;
             }
         }
 
         //TODO create a test for this functionality
         if(result && isLastRow(y2)) {
-            setField(x2, y2, color == 2 ? 4 : 5);
+            setField(y2, x2, color == 2 ? 4 : 5);
         }
         return result;
     }
     @Override
-    public boolean isPunchAvi() {
-        return isPunchDownLeftAvi() ||
-                isPunchUpLeftAvi() ||
-                isPunchDownRightAvi() ||
-                isPunchUpRightAvi();
+    public boolean isPunchAvi(int x, int y, int color) {
+        return isPunchDownLeftAvi(x, y, color) ||
+                isPunchUpLeftAvi(x, y, color) ||
+                isPunchDownRightAvi(x, y, color) ||
+                isPunchUpRightAvi(x, y, color);
     }
     @Override
-    public boolean isPunchUpLeftAvi() {
-        int upLeft = getField(y1 - 1, x1 - 1);
+    public boolean isPunchUpLeftAvi(int x, int y, int color) {
+        int upLeft = getField(y - 1, x - 1);
         switch(color)
         {
             case 5:
                 case 3: {
                     return ((upLeft == 2 || upLeft == 4)
-                            && getField(y1 - 2, x1 - 2) == 1);
+                            && getField(y - 2, x - 2) == 1);
                 }
             case 2:
                 case 4: {
                     return  ((upLeft == 3 || upLeft == 5)
-                            && getField(y1 - 2, x1 - 2) == 1);
+                            && getField(y - 2, x - 2) == 1);
                 }
             default:
                 return false;
@@ -59,19 +58,19 @@ public class Pawn implements Moves {
     }
 
     @Override
-    public boolean isPunchUpRightAvi() {
-        int upLeft = getField(y1 - 1, x1 + 1);
+    public boolean isPunchUpRightAvi(int x, int y, int color) {
+        int upLeft = getField(y - 1, x + 1);
         switch(color)
         {
             case 5:
             case 3: {
                 return ((upLeft == 2 || upLeft == 4)
-                        && getField(y1 - 2, x1 + 2) == 1);
+                        && getField(y - 2, x + 2) == 1);
             }
             case 2:
             case 4: {
                 return  ((upLeft == 3 || upLeft == 5)
-                        && getField(y1 - 2, x1 + 2) == 1);
+                        && getField(y - 2, x + 2) == 1);
             }
             default:
                 return false;
@@ -79,19 +78,19 @@ public class Pawn implements Moves {
     }
 
     @Override
-    public boolean isPunchDownLeftAvi() {
-        int upLeft = getField(y1 + 1, x1 - 1);
+    public boolean isPunchDownLeftAvi(int x, int y, int color) {
+        int upLeft = getField(y + 1, x - 1);
         switch(color)
         {
             case 5:
             case 3: {
                 return ((upLeft == 2 || upLeft == 4)
-                        && getField(y1 + 2, x1 - 2) == 1);
+                        && getField(y + 2, x - 2) == 1);
             }
             case 2:
             case 4: {
                 return  ((upLeft == 3 || upLeft == 5)
-                        && getField(y1 + 2, x1 - 2) == 1);
+                        && getField(y + 2, x - 2) == 1);
             }
             default:
                 return false;
@@ -99,19 +98,19 @@ public class Pawn implements Moves {
     }
 
     @Override
-    public boolean isPunchDownRightAvi() {
-        int upLeft = getField(y1 + 1, x1 + 1);
+    public boolean isPunchDownRightAvi(int x, int y, int color) {
+        int upLeft = getField(y + 1, x + 1);
         switch(color)
         {
-            case 5:
-            case 3: {
+            case 3:
+            case 5: {
                 return ((upLeft == 2 || upLeft == 4)
-                        && getField(y1 + 2, x1 + 2) == 1);
+                        && getField(y + 2, x + 2) == 1);
             }
             case 2:
             case 4: {
                 return  ((upLeft == 3 || upLeft == 5)
-                        && getField(y1 + 2, x1 + 2) == 1);
+                        && getField(y + 2, x + 2) == 1);
             }
             default:
                 return false;
@@ -119,19 +118,19 @@ public class Pawn implements Moves {
     }
     @Override
     public boolean punch(int x2, int y2) {
-        if(isPunchUpRightAvi() && x2 > x1 && y2 < y1) {
+        if(isPunchUpRightAvi(x1, y1, color) && x2 > x1 && y2 < y1) {
             changePosition(x2, y2);
             setField(y1 - 1, x1 + 1, 1);
         }
-        else if(isPunchUpLeftAvi() && x2 < x1 && y2 < y1) {
+        else if(isPunchUpLeftAvi(x1, y1, color) && x2 < x1 && y2 < y1) {
             changePosition(x2, y2);
             setField(y1 - 1, x1 - 1, 1);
         }
-        else if(isPunchDownLeftAvi() && x2 < x1 && y2 > y1) {
+        else if(isPunchDownLeftAvi(x1, y1, color) && x2 < x1 && y2 > y1) {
             changePosition(x2, y2);
             setField(y1 + 1, x1 - 1, 1);
         }
-        else if(isPunchDownRightAvi() && x2 > x1 && y2 > y1) {
+        else if(isPunchDownRightAvi(x1, y1, color) && x2 > x1 && y2 > y1) {
             changePosition(x2, y2);
             setField(y1 + 1, x1 + 1, 1);
         }
@@ -142,9 +141,10 @@ public class Pawn implements Moves {
     }
 
     @Override
-    public void changePosition(int x2, int y2) {
+    public boolean changePosition(int x2, int y2) {
         setField(y1, x1, 1);
         setField(y2, x2, color);
+        return getField(y2, x2) == color && getField(y1, x1) == 1;
     }
 
     @Override
@@ -163,6 +163,6 @@ public class Pawn implements Moves {
 
     @Override
     public boolean isLastRow(int y) {
-        return (color == 2 && y == 7) || (color == 3 && y ==0);
+        return (color == 2 && y == 0) || (color == 3 && y == 7);
     }
 }

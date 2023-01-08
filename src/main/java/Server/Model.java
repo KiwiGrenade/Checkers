@@ -27,10 +27,12 @@ public class Model {
     }
 
     public static int getField(int row, int col) {
-        if (row < 0 || row > 7 || col < 0 || col > 7) {
+        if ((row >= 0 && row < size)  && (col >= 0 && col < size)) {
+            return fields[row][col];
+        }
+        else{
             return -1;
         }
-        return fields[row][col];
     }
 
     public static void setField(int row, int col, int value) {
@@ -110,6 +112,8 @@ public class Model {
             default -> {
                 return false;
             }
+        }
+        if(pawn.punch(x2, y2)) {
         }
         return pawn.move(x2, y2);
     }

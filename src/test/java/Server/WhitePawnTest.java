@@ -43,14 +43,41 @@ class WhitePawnTest {
         };
         Model.playerMove(2, 5, 1, 4);
         assertArrayEquals(testBoard, Model.getAllFields(), "White: move left");
+
+        testBoard = new int[][]{
+                //0,1, 2, 3, 4, 5, 6, 7
+                {0, 3, 0, 1, 0, 3, 0, 3},//0
+                {3, 0, 3, 0, 2, 0, 3, 0},//1
+                {0, 3, 0, 3, 0, 3, 0, 3},//2
+                {1, 0, 1, 0, 1, 0, 1, 0},//3
+                {0, 1, 0, 1, 0, 3, 0, 1},//4
+                {2, 0, 2, 0, 2, 0, 2, 0},//5
+                {0, 2, 0, 2, 0, 2, 0, 2},//6
+                {2, 0, 2, 0, 2, 0, 2, 0}//7
+        };
+        Model.setAllFields(testBoard);
+        Pawn pawn = new WhitePawn(4, 1);
+        pawn.move(3, 0);
+        testBoard = new int[][] {
+                //0,1, 2, 3, 4, 5, 6, 7
+                {0, 3, 0, 4, 0, 3, 0, 3},//0
+                {3, 0, 3, 0, 1, 0, 3, 0},//1
+                {0, 3, 0, 3, 0, 3, 0, 3},//2
+                {1, 0, 1, 0, 1, 0, 1, 0},//3
+                {0, 1, 0, 1, 0, 3, 0, 1},//4
+                {2, 0, 2, 0, 2, 0, 2, 0},//5
+                {0, 2, 0, 2, 0, 2, 0, 2},//6
+                {2, 0, 2, 0, 2, 0, 2, 0}//7
+        };
+        assertArrayEquals(testBoard, Model.getAllFields(), "Change to WhiteQueen not working");
     }
 
     @Test
     void isPunchAvi() {
         Pawn pawn = new WhitePawn(7, 0);
-        assertFalse(pawn.isPunchAvi());
-        pawn = new WhitePawn(0, 7);
-        assertFalse(pawn.isPunchAvi());
+        assertFalse(pawn.isPunchAvi(pawn.x1, pawn.y1, pawn.color));
+        pawn = new BlackPawn(7, 7);
+        assertFalse(pawn.isPunchAvi(pawn.x1, pawn.y1, pawn.color));
     }
 
     @Test
@@ -68,7 +95,7 @@ class WhitePawnTest {
         };
         Model.setAllFields(testBoard);
         Pawn pawn = new WhitePawn(4, 5);
-        assertTrue(pawn.isPunchUpLeftAvi());
+        assertTrue(pawn.isPunchUpLeftAvi(pawn.x1, pawn.y1, pawn.color));
     }
 
     @Test
@@ -86,7 +113,7 @@ class WhitePawnTest {
         };
         Model.setAllFields(testBoard);
         Pawn pawn = new WhitePawn(4, 5);
-        assertTrue(pawn.isPunchUpRightAvi());
+        assertTrue(pawn.isPunchUpRightAvi(pawn.x1, pawn.y1, pawn.color));
     }
 
     @Test
@@ -104,7 +131,7 @@ class WhitePawnTest {
         };
         Model.setAllFields(testBoard);
         Pawn pawn = new WhitePawn(6, 3);
-        assertTrue(pawn.isPunchDownLeftAvi());
+        assertTrue(pawn.isPunchDownLeftAvi(pawn.x1, pawn.y1, pawn.color));
     }
 
     @Test
@@ -122,7 +149,7 @@ class WhitePawnTest {
         };
         Model.setAllFields(testBoard);
         Pawn pawn = new WhitePawn(4, 3);
-        assertTrue(pawn.isPunchDownRightAvi());
+        assertTrue(pawn.isPunchDownRightAvi(pawn.x1, pawn.y1, pawn.color));
 }
 
     @Test
