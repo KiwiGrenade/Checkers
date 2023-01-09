@@ -66,10 +66,6 @@ public class ClientHandler implements Runnable {
                         case 1 -> {
                             Model.setCurrentPlayer(opponent);
                         }
-//                        //bicie z możliwością bicia
-//                        case 2 -> {
-//
-//                        }
                         default -> {
                             System.out.println("ERROR");
                         }

@@ -14,17 +14,17 @@ public class Model {
         fields = new int[size][size];
         setTiles();
         placeCheckers();
-        Model.setAllFields(new int[][]{
-                //0,1, 2, 3, 4, 5, 6, 7
-                {0, 1, 0, 1, 0, 1, 0, 1},//0
-                {1, 0, 1, 0, 1, 0, 1, 0},//1
-                {0, 1, 0, 1, 0, 1, 0, 1},//2
-                {1, 0, 1, 0, 4, 0, 1, 0},//3
-                {0, 5, 0, 1, 0, 1, 0, 1},//4
-                {1, 0, 1, 0, 1, 0, 1, 0},//5
-                {0, 1, 0, 1, 0, 1, 0, 1},//6
-                {1, 0, 1, 0, 1, 0, 1, 0}//7
-        });
+//        Model.setAllFields(new int[][]{
+//                //0,1, 2, 3, 4, 5, 6, 7
+//                {0, 3, 0, 3, 0, 3, 0, 3},//0
+//                {1, 0, 1, 0, 1, 0, 1, 0},//1
+//                {0, 1, 0, 1, 0, 1, 0, 1},//2
+//                {1, 0, 1, 0, 5, 0, 1, 0},//3
+//                {0, 4, 0, 3, 0, 1, 0, 1},//4
+//                {1, 0, 1, 0, 1, 0, 1, 0},//5
+//                {0, 3, 0, 1, 0, 1, 0, 1},//6
+//                {1, 0, 2, 0, 2, 0, 2, 0}//7
+//        });
     }
 
     public static void setCurrentPlayer(ClientHandler player) {
@@ -104,10 +104,9 @@ public class Model {
 
     public static boolean checkPlayer(int x1, int y1) {
         if (currentPlayer.getMark() == 'W')
-            return getField(y1, x1) == 2;
-
+            return (getField(y1, x1) == 2) || (getField(y1, x1) == 4);
         else
-            return getField(y1, x1) == 3;
+            return (getField(y1, x1) == 3) || (getField(y1, x1) == 5);
 
     }
 

@@ -11,10 +11,9 @@ public class Client {
     private BufferedWriter bufferedWriter;
     private BufferedReader bufferedReader;
 
-
     public Client(Socket socket){
         try {
-            this.socket=socket;
+            this.socket = socket;
             this.bufferedWriter = new BufferedWriter(new OutputStreamWriter(socket.getOutputStream()));
             this.bufferedReader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
         }catch (IOException e){
