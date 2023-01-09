@@ -49,7 +49,12 @@ public class Queen extends Pawn{
 
     @Override
     public boolean normalMove(int x2, int y2) {
+        if(!noPunchNoLife()){
             return changePosition(x2, y2);
+        }
+        else {
+            return true;
+        }
     }
 
     @Override

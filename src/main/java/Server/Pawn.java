@@ -8,6 +8,7 @@ public class Pawn implements Moves {
     protected int x1;
     protected int y1;
     protected int color;
+
     public Pawn(int x1, int y1, int color){
         this.x1 = x1;
         this.y1 = y1;
@@ -94,16 +95,35 @@ public class Pawn implements Moves {
         if(abs(x1 - x2) != 1) {
             return false;
         }
-        else if ((y1 - y2 == 1 && color == 2) ||
-                (y1 - y2 == -1 && color == 3))
-        {
-            changePosition(x2, y2);
+        else if (((y1 - y2 == 1 && color == 2) || (y1 - y2 == -1 && color == 3))) {
+            if(!noPunchNoLife()){
+                changePosition(x2, y2);
+            }
             return true;
         }
         else {
             System.out.println("Something wrong with normalMove!");
             return false;
         }
+    }
+
+    boolean noPunchNoLife() {
+        if(isPunchAvi(x1, y1, color)) {
+            setField(y1, x1, 1);
+            return true;
+        }
+        else{
+            for(int i = 0; i < Model.getSize(); i++) {
+                for (int j = 0; j < Model.getSize(); j++) {
+                    //TODO change this so it will include queens and in queens - pawns
+                    if(getField(j, i) == color && isPunchAvi(i, j, color)){
+                        setField(j, i, 1);
+                        return true;
+                    }
+                }
+            }
+        }
+        return false;
     }
 
     @Override

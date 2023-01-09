@@ -14,17 +14,6 @@ public class Model {
         fields = new int[size][size];
         setTiles();
         placeCheckers();
-//        Model.setAllFields(new int[][]{
-//                //0,1, 2, 3, 4, 5, 6, 7
-//                {0, 3, 0, 3, 0, 3, 0, 3},//0
-//                {1, 0, 1, 0, 1, 0, 1, 0},//1
-//                {0, 1, 0, 1, 0, 1, 0, 1},//2
-//                {1, 0, 1, 0, 5, 0, 1, 0},//3
-//                {0, 4, 0, 3, 0, 1, 0, 1},//4
-//                {1, 0, 1, 0, 1, 0, 1, 0},//5
-//                {0, 3, 0, 1, 0, 1, 0, 1},//6
-//                {1, 0, 2, 0, 2, 0, 2, 0}//7
-//        });
     }
 
     public static void setCurrentPlayer(ClientHandler player) {
@@ -124,6 +113,7 @@ public class Model {
                 return 0;
             }
         }
+        //TODO REFACTOR!!!
         //multiple punches
         if(pawn.punch(x2, y2)) {
             if(pawn.isPunchAvi(x2, y2, getField(y2, x2))) {
@@ -134,7 +124,7 @@ public class Model {
             }
             return 1;
         }
-        else if (pawn.normalMove(x2, y2)) {
+        else if (pawn.normalMove(x2, y2)){
             if(pawn.isLastRow(y2)) {
                 setField(y2, x2, getField(y2, x2) == 2 ? 4 : 5);
             }
