@@ -185,20 +185,34 @@ class QueenTest {
                 {1, 0, 1, 0, 1, 0, 1, 0}//7
         };
         assertArrayEquals(testBoard, Model.getAllFields(), "White queen up left punch");
-        pawn = new Queen(1, 0, 4);
-        pawn.punch(6, 5);
+
+        testBoard = new int[][]{
+                //0,1, 2, 3, 4, 5, 6, 7
+                {0, 4, 0, 1, 0, 1, 0, 3},//0
+                {1, 0, 3, 0, 1, 0, 1, 0},//1
+                {0, 1, 0, 1, 0, 1, 0, 1},//2
+                {1, 0, 1, 0, 1, 0, 1, 0},//3
+                {0, 1, 0, 1, 0, 3, 0, 1},//4
+                {1, 0, 1, 0, 1, 0, 1, 0},//5
+                {0, 3, 0, 1, 0, 1, 0, 1},//6
+                {1, 0, 1, 0, 1, 0, 1, 0}//7
+        };
+        Model.setAllFields(testBoard);
 
         testBoard = new int[][]{
                 //0,1, 2, 3, 4, 5, 6, 7
                 {0, 1, 0, 1, 0, 1, 0, 3},//0
                 {1, 0, 1, 0, 1, 0, 1, 0},//1
-                {0, 1, 0, 1, 0, 1, 0, 1},//2
+                {0, 1, 0, 4, 0, 1, 0, 1},//2
                 {1, 0, 1, 0, 1, 0, 1, 0},//3
-                {0, 1, 0, 1, 0, 1, 0, 1},//4
-                {1, 0, 1, 0, 1, 0, 4, 0},//5
+                {0, 1, 0, 1, 0, 3, 0, 1},//4
+                {1, 0, 1, 0, 1, 0, 1, 0},//5
                 {0, 3, 0, 1, 0, 1, 0, 1},//6
                 {1, 0, 1, 0, 1, 0, 1, 0}//7
         };
-        assertArrayEquals(testBoard, Model.getAllFields(), "White queen up left punch");
+
+        pawn = new Queen(1, 0, 4);
+        pawn.punch(3, 2);
+        assertArrayEquals(testBoard, Model.getAllFields(), "White queen down right punch 1");
     }
 }

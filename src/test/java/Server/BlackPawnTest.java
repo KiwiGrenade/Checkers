@@ -264,5 +264,22 @@ class BlackPawnTest {
         pawn = new BlackPawn(6, 3);
         pawn.punch(4,5);
         assertArrayEquals(testBoard, Model.getAllFields(), "Black: punch down left");
+
+
+        testBoard = new int[][]{
+                //0,1, 2, 3, 4, 5, 6, 7
+                {0, 3, 0, 3, 0, 3, 0, 3},//0
+                {3, 0, 3, 0, 3, 0, 3, 0},//1
+                {0, 3, 0, 3, 0, 3, 0, 3},//2
+                {1, 0, 1, 0, 3, 0, 2, 0},//3
+                {0, 1, 0, 1, 0, 2, 0, 1},//4
+                {2, 0, 2, 0, 1, 0, 3, 0},//5
+                {0, 1, 0, 2, 0, 2, 0, 2},//6
+                {2, 0, 2, 0, 2, 0, 2, 0}//7
+        };
+        Model.setAllFields(testBoard);
+        pawn = new BlackPawn(4, 3);
+        assertFalse(pawn.punch(1, 6), "Black: punch is same as queen!");
+
     }
 }
