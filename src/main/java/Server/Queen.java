@@ -1,7 +1,6 @@
 package Server;
 
 import static Server.Model.setField;
-import static java.lang.Math.abs;
 
 public class Queen extends Pawn{
     public Queen(int x1, int y1, int color) {
@@ -50,39 +49,94 @@ public class Queen extends Pawn{
 
     @Override
     public boolean normalMove(int x2, int y2) {
-        if(isMoveDiagonal(x2, y2)) {
-            changePosition(x2, y2);
-            return true;
-        }
-        return false;
+            return changePosition(x2, y2);
     }
 
     @Override
     public boolean punch(int x2, int y2) {
-        if(isPunchUpRightAvi(x1, y1, color) && super.isPunchDownLeftAvi(x2, y2, color)) {
-            changePosition(x2, y2);
-            setField(y2 + 1, x2 - 1, 1);
-            return true;
+        //UpRight
+        if(x2 > x1 && y2 < y1) {
+            return punchUpRight(x2, y2);
+        }//UpLeft
+        else if(x2 < x1 && y2 < y1) {
+            return punchUpLeft(x2, y2);
+        }//DownLeft
+        else if(x2 < x1 && y2 > y1) {
+            return punchDownLeft(x2, y2);
+        }//DownRight
+        else if(x2 > x1 && y2 > y1) {
+            return punchDownRight(x2, y2);
         }
-        else if(isPunchUpLeftAvi(x1, y1, color) && super.isPunchDownRightAvi(x2, y2, color)) {
-            changePosition(x2, y2);
-            setField(y2 + 1, x2 + 1, 1);
-            return true;
+        else{
+            return false;
         }
-        else if(isPunchDownRightAvi(x1, y1, color) && super.isPunchUpLeftAvi(x2, y2, color)) {
-            changePosition(x2, y2);
-            setField(y2 - 1, x2 - 1, 1);
-            return true;
-        }
-        else if(isPunchDownLeftAvi(x1, y1, color) && super.isPunchUpRightAvi(x2, y2, color)) {
-            changePosition(x2, y2);
-            setField(y2 - 1, x2 + 1, 1);
-            return true;
-        }
-        return false;
     }
 
-    protected boolean isMoveDiagonal(int x2, int y2) {
-        return abs(x1 - x2) == abs(y1 - y2);
+    public boolean punchUpRight(int x2, int y2){
+        int pawnCounter = 0;
+        for(int x = x1 + 1, y = y1 - 1; x < x2; x++, y--){
+            if(isDifferentColorThanPawn(x, y)){
+                pawnCounter++;
+            }
+        }
+        if(pawnCounter == 1){
+            changePosition(x2, y2);
+            setField(y1 + 1, x1 - 1, 1);
+            return true;
+        }
+        else {
+            return false;
+        }
+    }
+
+    private boolean punchUpLeft(int x2, int y2) {
+        int pawnCounter = 0;
+        for(int x = x1 - 1, y = y1 - 1; x > x2; x--, y--){
+            if(isDifferentColorThanPawn(x, y)){
+                pawnCounter++;
+            }
+        }
+        if(pawnCounter == 1){
+            changePosition(x2, y2);
+            setField(y1 + 1, x1 + 1, 1);
+            return true;
+        }
+        else {
+            return false;
+        }
+    }
+
+    private boolean punchDownLeft(int x2, int y2) {
+        int pawnCounter = 0;
+        for(int x = x1 - 1, y = y1 + 1; x > x2; x--, y++){
+            if(isDifferentColorThanPawn(x, y)){
+                pawnCounter++;
+            }
+        }
+        if(pawnCounter == 1){
+            changePosition(x2, y2);
+            setField(y1 - 1, x1 + 1, 1);
+            return true;
+        }
+        else {
+            return false;
+        }
+    }
+
+    private boolean punchDownRight(int x2, int y2) {
+        int pawnCounter = 0;
+        for(int x = x1 + 1, y = y1 + 1; x < x2; x++, y++){
+            if(isDifferentColorThanPawn(x, y)){
+                pawnCounter++;
+            }
+        }
+        if(pawnCounter == 1){
+            changePosition(x2, y2);
+            setField(y1 - 1, x1 - 1, 1);
+            return true;
+        }
+        else {
+            return false;
+        }
     }
 }
