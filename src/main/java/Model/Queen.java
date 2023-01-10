@@ -3,6 +3,7 @@ package Model;
 import Model.Model;
 
 import static Model.Model.setField;
+import static java.lang.Math.abs;
 
 public class Queen extends Pawn {
     public Queen(int x1, int y1, int color) {
@@ -51,6 +52,9 @@ public class Queen extends Pawn {
 
     @Override
     public boolean normalMove(int x2, int y2) {
+        if(Model.getGameMode() == 1 && abs(x1 - x2) != 1){
+            return false;
+        }
         if(!noPunchNoLife()){
             return changePosition(x2, y2);
         }
