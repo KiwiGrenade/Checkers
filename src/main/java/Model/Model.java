@@ -1,4 +1,6 @@
-package Server;
+package Model;
+
+import Server.ClientHandler;
 
 import static java.lang.Math.abs;
 
@@ -6,15 +8,15 @@ public class Model {
     private static int[][] fields;
     private static int size;
     private static ClientHandler currentPlayer;
-    private static String gameMode;
-    public static String getGameMode() {
+    private static int gameMode;
+    public static int getGameMode() {
         return gameMode;
     }
 
     public Model(int size, String gameMode1) {
         Model.size = size;
         fields = new int[size][size];
-        gameMode = gameMode1;
+        gameMode = Integer.parseInt(gameMode1);
         setTiles();
         placeCheckers();
     }
@@ -117,20 +119,21 @@ public class Model {
                 return 0;
             }
         }
-        //multiple punches
+        //multiple punches - change to queen in the middle of the game
         if(pawn.punch(x2, y2)) {
-            if(pawn.isPunchAvi(x2, y2, getField(y2, x2))) {
-                return 2;
+            if(gameMode == 1 && pawn.isLastRow(y2)) {
+                Model.setField(y2, x2, pawn.color == 2 ? 4 : 5);
+                return 1;
             }
-            else if(pawn.isLastRow(y2)) {
-                setField(y2, x2, getField(y2, x2) == 2 ? 4 : 5);
+            if(pawn.isPunchAvi(x2, y2, getField(y2, x2))) {
+                if(gameMode == 3 && pawn.isLastRow(y2)) {
+                    Model.setField(y2, x2, pawn.color == 2 ? 4 : 5);
+                }
+                return 2;
             }
             return 1;
         }
         else if (pawn.normalMove(x2, y2)){
-            if(pawn.isLastRow(y2)) {
-                setField(y2, x2, getField(y2, x2) == 2 ? 4 : 5);
-            }
             return 1;
         }
         else{

@@ -1,5 +1,7 @@
 package Server;
 
+import Model.Model;
+
 import java.io.*;
 import java.net.ServerSocket;
 import java.util.concurrent.ExecutorService;
@@ -11,7 +13,7 @@ public class ChessServer {
 
         ServerSocket server = new ServerSocket(12345);
         while(true) {
-            new Model(8);
+            new Model(8, args[0]);
             pool.execute(new ClientHandler(server.accept(),'W'));
             pool.execute(new ClientHandler(server.accept(),'B'));
         }
