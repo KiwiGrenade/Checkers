@@ -1,7 +1,5 @@
 package Model;
 
-import Server.Model;
-import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -12,7 +10,7 @@ class ModelTest {
 
     @BeforeEach
     void setUp() {
-        model = new Model(8);
+        model = new Model(8, "1");
     }
 
     @Test

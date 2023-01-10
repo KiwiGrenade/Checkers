@@ -1,2 +1,4 @@
-package Model;public class EnglishBlackPawnTest {
+package Model;
+
+public class EnglishBlackPawnTest {
 }
