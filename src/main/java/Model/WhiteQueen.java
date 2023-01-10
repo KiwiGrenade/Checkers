@@ -1,6 +1,8 @@
-package Server;
+package Model;
 
-public class WhiteQueen extends Queen{
+import Model.Queen;
+
+public class WhiteQueen extends Queen {
     public WhiteQueen(int x1, int y1) {
         super(x1, y1 , 4);
     }

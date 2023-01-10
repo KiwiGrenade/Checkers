@@ -1,4 +1,4 @@
-package Server;
+package Model;
 
 public interface Moves {
     boolean isPunchAvi(int x, int y, int color);

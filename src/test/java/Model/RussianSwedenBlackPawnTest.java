@@ -1,4 +1,4 @@
-package Server;
+package Model;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -10,7 +10,7 @@ class BlackPawnTest {
     Model model;
     @BeforeEach
     void setUp() {
-        model = new Model(8);
+        model = new Model(8, "1");
     }
     @Test
     void move() {
@@ -43,33 +43,6 @@ class BlackPawnTest {
         };
         Model.playerMove(4, 3, 3, 4);
         assertArrayEquals(testBoard, Model.getAllFields(), "Black: move right");
-//
-//        testBoard = new int[][]{
-//                //0,1, 2, 3, 4, 5, 6, 7
-//                {0, 3, 0, 3, 0, 3, 0, 3},//0
-//                {3, 0, 3, 0, 3, 0, 3, 0},//1
-//                {0, 3, 0, 3, 0, 3, 0, 3},//2
-//                {1, 0, 1, 0, 1, 0, 1, 0},//3
-//                {0, 1, 0, 1, 0, 3, 0, 1},//4
-//                {2, 0, 2, 0, 2, 0, 2, 0},//5
-//                {0, 2, 0, 3, 0, 2, 0, 2},//6
-//                {2, 0, 1, 0, 2, 0, 2, 0}//7
-//        };
-//        Model.setAllFields(testBoard);
-//        Pawn pawn = new BlackPawn(3, 6);
-//        pawn.normalMove(2, 7);
-//        testBoard = new int[][] {
-//                //0,1, 2, 3, 4, 5, 6, 7
-//                {0, 3, 0, 3, 0, 3, 0, 3},//0
-//                {3, 0, 3, 0, 3, 0, 3, 0},//1
-//                {0, 3, 0, 3, 0, 3, 0, 3},//2
-//                {1, 0, 1, 0, 1, 0, 1, 0},//3
-//                {0, 1, 0, 1, 0, 3, 0, 1},//4
-//                {2, 0, 2, 0, 2, 0, 2, 0},//5
-//                {0, 2, 0, 1, 0, 2, 0, 2},//6
-//                {2, 0, 5, 0, 2, 0, 2, 0}//7
-//        };
-//        assertArrayEquals(testBoard, Model.getAllFields(), "Change to BlackQueen not working");
     }
 
     @Test

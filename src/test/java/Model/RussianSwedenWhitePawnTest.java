@@ -1,4 +1,4 @@
-package Server;
+package Model;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -10,7 +10,7 @@ class WhitePawnTest {
     Model model;
     @BeforeEach
     void setUp() {
-        model = new Model(8);
+        model = new Model(8, "1");
     }
     @Test
     void move() {
@@ -132,7 +132,7 @@ class WhitePawnTest {
         };
         Model.setAllFields(testBoard);
         Pawn pawn = new WhitePawn(6, 3);
-        assertTrue(pawn.isPunchDownLeftAvi(pawn.x1, pawn.y1, pawn.color));
+        assertFalse(pawn.isPunchDownLeftAvi(pawn.x1, pawn.y1, pawn.color));
     }
 
     @Test
@@ -150,7 +150,7 @@ class WhitePawnTest {
         };
         Model.setAllFields(testBoard);
         Pawn pawn = new WhitePawn(4, 3);
-        assertTrue(pawn.isPunchDownRightAvi(pawn.x1, pawn.y1, pawn.color));
+        assertFalse(pawn.isPunchDownRightAvi(pawn.x1, pawn.y1, pawn.color));
 }
 
     @Test

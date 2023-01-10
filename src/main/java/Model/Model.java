@@ -6,12 +6,15 @@ public class Model {
     private static int[][] fields;
     private static int size;
     private static ClientHandler currentPlayer;
+    private static String gameMode;
+    public static String getGameMode() {
+        return gameMode;
+    }
 
-    public static Pawn pawn;
-
-    public Model(int size) {
+    public Model(int size, String gameMode1) {
         Model.size = size;
         fields = new int[size][size];
+        gameMode = gameMode1;
         setTiles();
         placeCheckers();
     }
@@ -104,6 +107,7 @@ public class Model {
         if (getField(y2, x2) != 1 || getField(y1, x1) < 2) {
             return 0;
         }
+        Pawn pawn;
         switch (getField(y1, x1)) {
             case 2 -> pawn = new WhitePawn(x1, y1);
             case 3 -> pawn = new BlackPawn(x1, y1);
@@ -113,7 +117,6 @@ public class Model {
                 return 0;
             }
         }
-        //TODO REFACTOR!!!
         //multiple punches
         if(pawn.punch(x2, y2)) {
             if(pawn.isPunchAvi(x2, y2, getField(y2, x2))) {

@@ -1,8 +1,10 @@
-package Server;
+package Model;
 
-import static Server.Model.setField;
+import Model.Model;
 
-public class Queen extends Pawn{
+import static Model.Model.setField;
+
+public class Queen extends Pawn {
     public Queen(int x1, int y1, int color) {
         super(x1, y1, color);
     }
@@ -59,6 +61,9 @@ public class Queen extends Pawn{
 
     @Override
     public boolean punch(int x2, int y2) {
+        if(Model.getGameMode() == 1) {
+            return super.punch(x2, y2);
+        }
         //UpRight
         if(x2 > x1 && y2 < y1) {
             return punchUpRight(x2, y2);

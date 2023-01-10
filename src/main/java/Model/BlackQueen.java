@@ -1,4 +1,4 @@
-package Server;
+package Model;
 
 public class BlackQueen extends Queen {
     public BlackQueen(int x1, int y1) {

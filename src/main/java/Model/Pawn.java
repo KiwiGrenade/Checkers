@@ -1,10 +1,12 @@
-package Server;
+package Model;
 
-import static Server.Model.getField;
-import static Server.Model.setField;
+import Model.Model;
+
+import static Model.Model.getField;
+import static Model.Model.setField;
 import static java.lang.Math.abs;
 
-public class Pawn implements Moves {
+public abstract class Pawn implements Moves {
     protected int x1;
     protected int y1;
     protected int color;
@@ -115,7 +117,6 @@ public class Pawn implements Moves {
         else{
             for(int i = 0; i < Model.getSize(); i++) {
                 for (int j = 0; j < Model.getSize(); j++) {
-                    //TODO change this so it will include queens and in queens - pawns
                     if(getField(j, i) == color && isPunchAvi(i, j, color)){
                         setField(j, i, 1);
                         return true;
