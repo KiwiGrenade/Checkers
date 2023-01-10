@@ -9,6 +9,7 @@ import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Color;
+import javafx.scene.transform.Rotate;
 
 
 import java.io.IOException;
@@ -33,6 +34,12 @@ public class CheckersController implements Initializable {
             e.printStackTrace();
         }
         client.receiveMessageFromServer(gpCheckerboard);
+        Rotate rotate = new Rotate();
+        rotate.setPivotX(400);
+        rotate.setPivotY(400);
+        rotate.setAngle(90);
+        gpCheckerboard.getTransforms().addAll(rotate);
+        gpCheckerboard.setScaleX(-1);
     }
 
     public void sendCoordinates(MouseEvent e) {
@@ -77,6 +84,12 @@ public class CheckersController implements Initializable {
             }
         }
         return board;
+    }
+
+    public static void rotateForBlack(GridPane pane){
+        Platform.runLater(() -> {
+            pane.setScaleY(-1);
+        });
     }
 
     public static void drawCheckers(GridPane pane, String string) {

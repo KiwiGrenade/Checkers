@@ -34,7 +34,7 @@ public class ClientHandler implements Runnable {
     }
 
     private void setupGame() throws IOException{
-        output.println("WELCOME " + mark);
+        output.println(mark);
         if(mark == 'W'){
             Model.setCurrentPlayer(this);
             output.println("MSG waiting for opponent");

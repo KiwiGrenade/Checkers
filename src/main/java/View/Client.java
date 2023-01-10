@@ -43,6 +43,9 @@ public class Client {
                     if(messageFromServer.startsWith("0")) {
                         CheckersController.drawCheckers(gpCheckerboard, messageFromServer);
                     }
+                    else if(messageFromServer.startsWith("B")){
+                        CheckersController.rotateForBlack(gpCheckerboard);
+                    }
                 }catch (IOException e){
                     e.printStackTrace();
                     System.out.println("Error receiving message from server");
