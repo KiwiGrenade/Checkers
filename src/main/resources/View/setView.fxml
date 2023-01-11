@@ -2,27 +2,32 @@
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.RowConstraints?>
-<GridPane fx:id="gpCheckerboard" fx:controller="View.CheckersController"
-          xmlns:fx="http://javafx.com/fxml" alignment="CENTER" onMouseClicked="#sendCoordinates">
-    <columnConstraints>
-        <ColumnConstraints halignment="CENTER" />
-        <ColumnConstraints halignment="CENTER" />
-        <ColumnConstraints halignment="CENTER" />
-        <ColumnConstraints halignment="CENTER" />
-        <ColumnConstraints halignment="CENTER" />
-        <ColumnConstraints halignment="CENTER" />
-        <ColumnConstraints halignment="CENTER" />
-        <ColumnConstraints halignment="CENTER" />
-    </columnConstraints>
-    <rowConstraints>
-        <RowConstraints valignment="CENTER"/>
-        <RowConstraints valignment="CENTER"/>
-        <RowConstraints valignment="CENTER"/>
-        <RowConstraints valignment="CENTER"/>
-        <RowConstraints valignment="CENTER"/>
-        <RowConstraints valignment="CENTER"/>
-        <RowConstraints valignment="CENTER"/>
-        <RowConstraints valignment="CENTER"/>
-    </rowConstraints>
-</GridPane>
+<?import javafx.scene.layout.VBox?>
+<VBox fx:id="board" alignment="CENTER" fx:controller="View.CheckersController"
+      xmlns:fx="http://javafx.com/fxml">
+    <children>
+        <GridPane fx:id="gpCheckerboard" alignment="CENTER" onMouseClicked="#sendCoordinates">
+            <columnConstraints>
+                <ColumnConstraints halignment="CENTER" />
+                <ColumnConstraints halignment="CENTER" />
+                <ColumnConstraints halignment="CENTER" />
+                <ColumnConstraints halignment="CENTER" />
+                <ColumnConstraints halignment="CENTER" />
+                <ColumnConstraints halignment="CENTER" />
+                <ColumnConstraints halignment="CENTER" />
+                <ColumnConstraints halignment="CENTER" />
+            </columnConstraints>
+            <rowConstraints>
+                <RowConstraints valignment="CENTER"/>
+                <RowConstraints valignment="CENTER"/>
+                <RowConstraints valignment="CENTER"/>
+                <RowConstraints valignment="CENTER"/>
+                <RowConstraints valignment="CENTER"/>
+                <RowConstraints valignment="CENTER"/>
+                <RowConstraints valignment="CENTER"/>
+                <RowConstraints valignment="CENTER"/>
+            </rowConstraints>
+        </GridPane>
+    </children>
 
+</VBox>

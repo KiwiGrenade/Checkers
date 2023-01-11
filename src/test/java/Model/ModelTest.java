@@ -145,6 +145,23 @@ class ModelTest {
         };
         assertArrayEquals(testBoard, Model.getAllFields(), "Change to BlackQueen not working");
     }
+    @Test
+    void testWin(){
+        new Model(8, "1");
+        int [][] testBoard = {
+                //0,1, 2, 3, 4, 5, 6, 7
+                {0, 1, 0, 1, 0, 1, 0, 0},//0
+                {0, 0, 0, 0, 4, 0, 1, 0},//1
+                {0, 2, 0, 1, 0, 1, 0, 0},//2
+                {1, 0, 1, 0, 1, 0, 1, 0},//3
+                {0, 1, 0, 1, 0, 1, 0, 1},//4
+                {2, 0, 2, 0, 2, 0, 2, 0},//5
+                {0, 2, 0, 2, 0, 2, 0, 2},//6
+                {2, 0, 2, 0, 2, 0, 2, 0}//7
+        };
+        Model.setAllFields(testBoard);
+        assertTrue(Model.win(Model.fieldsToString()));
+    }
 
     @Test
     void testEnglishQueenChange(){

@@ -79,6 +79,15 @@ public class Model {
         return string;
     }
 
+    public static boolean win(String boardState){
+        if(!boardState.contains("3") && !boardState.contains("5"))
+            return true;
+        if(!boardState.contains("2") && !boardState.contains("4"))
+            return true;
+        else
+            return false;
+    }
+
     //ustawia pionki 2 - biale 3 - czarne
     public static void placeCheckers() {
         for (int i = size - 3; i < size; i++) {

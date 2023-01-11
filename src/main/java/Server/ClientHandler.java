@@ -24,6 +24,8 @@ public class ClientHandler implements Runnable {
             processRequest();
         }catch (IOException e){
             System.err.println("IO in client handler(client left)");
+            if(opponent!=null)
+                opponent.output.println("Enemy left");
         }
         finally {
             try {
@@ -40,22 +42,19 @@ public class ClientHandler implements Runnable {
         if(mark == 'W'){
             Model.setCurrentPlayer(this);
             output.println("MSG waiting for opponent");
-            output.println(Model.fieldsToString());//do gracza
         }
         else {
             opponent = Model.getCurrentPlayer();
             opponent.opponent = this;
             output.println(Model.fieldsToString());//do gracza
+            opponent.output.println(Model.fieldsToString());//do przecwinika
         }
     }
 
     private void processRequest() throws IOException {
         while (true) {
             String request = input.readLine();
-            if (request.startsWith("QUIT")) {
-                return;
-            }
-            else if(Model.getCurrentPlayer().equals(this)){
+            if(Model.getCurrentPlayer().equals(this)){
                 if(Model.checkPlayer(Integer.parseInt(request.substring(0, 1)),Integer.parseInt(request.substring(1, 2)))) {
                     switch(
                             Model.playerMove(
@@ -74,6 +73,10 @@ public class ClientHandler implements Runnable {
                     }
                     output.println(Model.fieldsToString());//do gracza
                     opponent.output.println(Model.fieldsToString());//do op gracza
+                    if(Model.win(Model.fieldsToString())) {
+                        output.println("P");//wygrana
+                        opponent.output.println("L");//przegrana
+                    }
                 }
             }
         }
