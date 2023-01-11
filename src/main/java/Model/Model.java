@@ -131,9 +131,15 @@ public class Model {
                 }
                 return 2;
             }
+            if(pawn.isLastRow(y2)){
+                Model.setField(y2, x2, pawn.color == 2 ? 4 : 5);
+            }
             return 1;
         }
         else if (pawn.normalMove(x2, y2)){
+            if(pawn.isLastRow(y2)){
+                Model.setField(y2, x2, pawn.color == 2 ? 4 : 5);
+            }
             return 1;
         }
         else{

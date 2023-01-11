@@ -11,7 +11,7 @@ public class RussianSwedenQueenTest {
     Model model;
     @BeforeEach
     void setUp() {
-        model = new Model(8, "1");
+        model = new Model(8, "2");
     }
 
     @Test

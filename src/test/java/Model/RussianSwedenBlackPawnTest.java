@@ -69,7 +69,7 @@ class RussianSwedenBlackPawnTest {
         };
         Model.setAllFields(testBoard);
         Pawn pawn = new BlackPawn(4, 5);
-        assertTrue(pawn.isPunchUpLeftAvi(pawn.x1, pawn.y1, pawn.color));
+        assertFalse(pawn.isPunchUpLeftAvi(pawn.x1, pawn.y1, pawn.color));
     }
 
     @Test
@@ -87,7 +87,7 @@ class RussianSwedenBlackPawnTest {
         };
         Model.setAllFields(testBoard);
         Pawn pawn = new BlackPawn(4, 5);
-        assertTrue(pawn.isPunchUpRightAvi(pawn.x1, pawn.y1, pawn.color));
+        assertFalse(pawn.isPunchUpRightAvi(pawn.x1, pawn.y1, pawn.color));
     }
 
     @Test
@@ -141,20 +141,8 @@ class RussianSwedenBlackPawnTest {
         };
 
         Model.setAllFields(testBoard);
-        testBoard = new int[][] {
-                //0,1, 2, 3, 4, 5, 6, 7
-                {0, 3, 0, 3, 0, 3, 0, 3},//0
-                {3, 0, 3, 0, 3, 0, 3, 0},//1
-                {0, 3, 0, 3, 0, 3, 0, 3},//2
-                {1, 0, 1, 0, 1, 0, 3, 0},//3
-                {0, 1, 0, 1, 0, 1, 0, 1},//4
-                {2, 0, 2, 0, 1, 0, 2, 0},//5
-                {0, 2, 0, 2, 0, 2, 0, 2},//6
-                {2, 0, 2, 0, 2, 0, 2, 0}//7
-        };
         Pawn pawn = new BlackPawn(4, 5);
-        pawn.punch(6,3);
-        assertArrayEquals(testBoard, Model.getAllFields(), "Black: punch up right");
+        assertFalse(pawn.punch(6,3), "Black: punch up right");
 
         testBoard = new int[][]{
                 //0,1, 2, 3, 4, 5, 6, 7
@@ -168,20 +156,8 @@ class RussianSwedenBlackPawnTest {
                 {2, 0, 2, 0, 2, 0, 2, 0}//7
         };
         Model.setAllFields(testBoard);
-        testBoard = new int[][]{
-                //0,1, 2, 3, 4, 5, 6, 7
-                {0, 3, 0, 3, 0, 3, 0, 3},//0
-                {3, 0, 3, 0, 3, 0, 3, 0},//1
-                {0, 3, 0, 3, 0, 3, 0, 3},//2
-                {1, 0, 1, 0, 3, 0, 2, 0},//3
-                {0, 1, 0, 1, 0, 1, 0, 1},//4
-                {2, 0, 2, 0, 1, 0, 1, 0},//5
-                {0, 2, 0, 2, 0, 2, 0, 2},//6
-                {2, 0, 2, 0, 2, 0, 2, 0}//7
-        };
         pawn = new BlackPawn(6, 5);
-        pawn.punch(4,3);
-        assertArrayEquals(testBoard, Model.getAllFields(), "Black: punch up left");
+        assertFalse(pawn.punch(4,3), "Black: punch up left");
 
         testBoard = new int[][]{
                 //0,1, 2, 3, 4, 5, 6, 7

@@ -5,12 +5,12 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class RussianSwedenWhitePawnTest {
+class RussianSwedenPawnTest {
 
     Model model;
     @BeforeEach
     void setUp() {
-        model = new Model(8, "1");
+        model = new Model(8, "2");
     }
     @Test
     void move() {
@@ -132,7 +132,7 @@ class RussianSwedenWhitePawnTest {
         };
         Model.setAllFields(testBoard);
         Pawn pawn = new WhitePawn(6, 3);
-        assertFalse(pawn.isPunchDownLeftAvi(pawn.x1, pawn.y1, pawn.color));
+        assertTrue(pawn.isPunchDownLeftAvi(pawn.x1, pawn.y1, pawn.color));
     }
 
     @Test
@@ -150,7 +150,7 @@ class RussianSwedenWhitePawnTest {
         };
         Model.setAllFields(testBoard);
         Pawn pawn = new WhitePawn(4, 3);
-        assertFalse(pawn.isPunchDownRightAvi(pawn.x1, pawn.y1, pawn.color));
+        assertTrue(pawn.isPunchDownRightAvi(pawn.x1, pawn.y1, pawn.color));
 }
 
     @Test

@@ -2,8 +2,7 @@ package Model;
 
 import Model.Model;
 
-import static Model.Model.getField;
-import static Model.Model.setField;
+import static Model.Model.*;
 import static java.lang.Math.abs;
 
 public class Queen extends Pawn {
@@ -13,6 +12,9 @@ public class Queen extends Pawn {
 
     @Override
     public boolean isPunchUpLeftAvi(int x, int y, int color) {
+        if(getGameMode() == 1) {
+            return super.isPunchUpLeftAvi(x, y, color);
+        }
         for (x = x1, y = y1; x >= 0; x--, y--) {
             if(super.isPunchUpLeftAvi(x, y, color)) {
                 return true;
@@ -23,6 +25,9 @@ public class Queen extends Pawn {
 
     @Override
     public boolean isPunchUpRightAvi(int x, int y, int color) {
+        if(getGameMode() == 1) {
+            return super.isPunchUpRightAvi(x, y, color);
+        }
         for (x = x1, y = y1; y >= 0; x++, y--) {
             if(super.isPunchUpRightAvi(x, y, color)) {
                 return true;
@@ -33,6 +38,9 @@ public class Queen extends Pawn {
 
     @Override
     public boolean isPunchDownLeftAvi(int x, int y, int color) {
+        if(getGameMode() == 1) {
+            return super.isPunchDownLeftAvi(x, y, color);
+        }
         for (x = x1, y = y1; x >= 0; x--, y++) {
             if(super.isPunchDownLeftAvi(x, y, color)) {
                 return true;
@@ -43,6 +51,9 @@ public class Queen extends Pawn {
 
     @Override
     public boolean isPunchDownRightAvi(int x, int y, int color) {
+        if(getGameMode() == 1) {
+            return super.isPunchDownRightAvi(x, y, color);
+        }
         for (x = x1, y = y1; x >= 0; x++, y++) {
             if(super.isPunchDownRightAvi(x, y, color)) {
                 return true;
@@ -98,7 +109,7 @@ public class Queen extends Pawn {
                 pawnPositionY = y;
             }
         }
-        if((pawnCounter == 1) && isDifferentColorThanPawn(pawnPositionY, pawnPositionX)){
+        if((pawnCounter == 1) && isDifferentColorThanPawn(pawnPositionX, pawnPositionY)){
             changePosition(x2, y2);
             setField(pawnPositionY, pawnPositionX, 1);
             return true;
@@ -119,7 +130,7 @@ public class Queen extends Pawn {
                 pawnPositionY = y;
             }
         }
-        if(pawnCounter == 1 && isDifferentColorThanPawn(pawnPositionY, pawnPositionX)){
+        if(pawnCounter == 1 && isDifferentColorThanPawn(pawnPositionX, pawnPositionY)){
             changePosition(x2, y2);
             setField(pawnPositionY, pawnPositionX, 1);
             return true;
@@ -136,9 +147,11 @@ public class Queen extends Pawn {
         for(int x = x1 - 1, y = y1 + 1; x > x2; x--, y++){
             if(getField(y, x) != 1){
                 pawnCounter++;
+                pawnPositionX = x;
+                pawnPositionY = y;
             }
         }
-        if(pawnCounter == 1){
+        if(pawnCounter == 1 && isDifferentColorThanPawn(pawnPositionX, pawnPositionY)){
             changePosition(x2, y2);
             setField(pawnPositionY, pawnPositionX, 1);
             return true;
@@ -155,9 +168,11 @@ public class Queen extends Pawn {
         for(int x = x1 + 1, y = y1 + 1; x < x2; x++, y++){
             if(getField(y, x) != 1){
                 pawnCounter++;
+                pawnPositionX = x;
+                pawnPositionY = y;
             }
         }
-        if(pawnCounter == 1){
+        if(pawnCounter == 1 && isDifferentColorThanPawn(pawnPositionX, pawnPositionY)){
             changePosition(x2, y2);
             setField(pawnPositionY, pawnPositionX, 1);
             return true;
