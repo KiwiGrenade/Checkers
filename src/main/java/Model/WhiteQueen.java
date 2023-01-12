@@ -2,7 +2,15 @@ package Model;
 
 import Model.Queen;
 
+/**
+ * Klasa odpowiedzialna za biala krolowa i jej ruchy, dziedziczy po Queen
+ */
 public class WhiteQueen extends Queen {
+    /**
+     * Tworzy biala krolowa na pozycji x, y w tablicy
+     * @param x1 Pozycja x
+     * @param y1 Pozycja y
+     */
     public WhiteQueen(int x1, int y1) {
         super(x1, y1 , 4);
     }

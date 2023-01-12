@@ -1,9 +1,16 @@
 package Model;
 
-import static Model.Model.getGameMode;
 import static Model.Model.getField;
 
+/**
+ * Klasa odpowiedzialna za czarny pionek i jego ruchy
+ */
 public class BlackPawn extends Pawn {
+    /**
+     * Tworzy czarny pionek na pozycji x, y w tablicy
+     * @param x1 Pozycja x
+     * @param y1 Pozycja y
+     */
     public BlackPawn(int x1, int y1){
         super(x1, y1, 3);
     }

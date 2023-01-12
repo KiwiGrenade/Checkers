@@ -20,6 +20,9 @@ import java.net.Socket;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+/**
+ * Klasa kontrolera - odpowiedzialna za aktualizowanie GUI i stworzenie informacji dla serwera, lączy widok z modelem (serwerem)
+ */
 public class CheckersController implements Initializable {
     public static final int TILE_SIZE = 100; //skala
 
@@ -32,6 +35,11 @@ public class CheckersController implements Initializable {
     private String messageToSend;
     private Pawn currentPawn;
 
+    /**
+     * Glowna metoda dla interpretacji pliku FXML ze szkieletem GUI, wywolanie skutkuje stworzeniem i polaczeniem klietna z serwerem oraz zbudowaniem GUI
+     * @param url sciezka pliku
+     * @param resourceBundle plik zrodlowy
+     */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         try {
@@ -48,11 +56,18 @@ public class CheckersController implements Initializable {
         gpCheckerboard.setScaleX(-1);
     }
 
+    /**
+     * Metoda odpowiedzialna za przygotowanie informacji dla serwera na podstawie aktywnosci uzytkownika na GUI
+     * LPM po raz pierwszy - wybranie pionka i odczytanie jego pozycji startowej
+     * LPM po raz drugi - wybranie pola, na ktore pionek ma sie przemiescic i wyslanie informacji do serwera
+     * PPM - resetuje wybor pionka
+     * @param e Obsluga klikniec myszki
+     */
     public void sendCoordinates(MouseEvent e) {
         if(e.getButton().equals(MouseButton.PRIMARY)) {
             if(currentPawn==null && e.getTarget() instanceof Pawn){
                 messageToSend = "";
-                System.out.println("S[" + GridPane.getRowIndex((Node) e.getTarget()) + "][" + GridPane.getColumnIndex((Node) e.getTarget()) + "]");//sprawdza
+                //System.out.println("S[" + GridPane.getRowIndex((Node) e.getTarget()) + "][" + GridPane.getColumnIndex((Node) e.getTarget()) + "]");//sprawdza
                 messageToSend += GridPane.getRowIndex((Node) e.getTarget());
                 messageToSend += GridPane.getColumnIndex((Node) e.getTarget());
 
@@ -60,7 +75,7 @@ public class CheckersController implements Initializable {
                 currentPawn.setEffect(new Lighting());
             }
             if(currentPawn!=null && e.getTarget() instanceof Tile) {
-                System.out.println("E[" + GridPane.getRowIndex((Node) e.getTarget()) + "][" + GridPane.getColumnIndex((Node) e.getTarget()) + "]");//sprawdza
+                //System.out.println("E[" + GridPane.getRowIndex((Node) e.getTarget()) + "][" + GridPane.getColumnIndex((Node) e.getTarget()) + "]");//sprawdza
                 messageToSend += GridPane.getRowIndex((Node) e.getTarget());
                 messageToSend += GridPane.getColumnIndex((Node) e.getTarget());
                 currentPawn.setEffect(null);
@@ -75,10 +90,14 @@ public class CheckersController implements Initializable {
                 currentPawn.setEffect(null);
                 currentPawn = null;
             }
-            System.out.println("discard");
         }
     }
 
+    /**
+     * Metoda odpowiedzialna za zamiane wiadomosci z serwera z ciagu cyfr w int[][] w celu ulatwienia interpretacji
+     * @param str Wiadomosc z serwera
+     * @return Tablica w postaci int[][]
+     */
     public static int[][] strToBoard (String str) {
         int size = (int) Math.sqrt(str.length());
         int counter = 0;
@@ -92,12 +111,22 @@ public class CheckersController implements Initializable {
         return board;
     }
 
+    /**
+     * Metoda odpowiedzialna za obrocenie tablicy dla czarnych pionkow
+     * @param pane Tablica
+     */
     public static void rotateForBlack(GridPane pane){
         Platform.runLater(() -> {
             pane.setScaleY(-1);
         });
     }
 
+    /**
+     * Metoda odpowiedzialna za rysowanie tablicy na podstawie wiadomosci otrzymanej z serwera
+     * @param vb Glowna plansza
+     * @param pane Widoczna czesc szachownicy
+     * @param string Wiadomosc z serwera
+     */
     public static void drawCheckers(VBox vb, GridPane pane, String string) {
         int boardSize = (int) Math.sqrt(string.length());
         int[][] board = strToBoard(string);
@@ -137,6 +166,13 @@ public class CheckersController implements Initializable {
             }
         });
     }
+
+    /**
+     * Metoda odpowiedzialna za rysowanie ekranu dla zwyciezcy i przegranego
+     * @param vb Glowna plansza
+     * @param pane Widoczna czesc szachownicy
+     * @param winOrLose Wiadomosc z serwera, czy wygral, czy przegral
+     */
     public static void winOrLose(VBox vb, GridPane pane, String winOrLose){
         Text text = new Text();
         if(winOrLose.equals("P"))
@@ -164,6 +200,10 @@ public class CheckersController implements Initializable {
         });
     }
 
+    /**
+     * Metoda odpowiedzialna za rysownaie ekranu oczekiwania
+     * @param vb Glowna tablica
+     */
     public static void printWaitingMSG(VBox vb){
         Text text = new Text();
 
@@ -177,6 +217,10 @@ public class CheckersController implements Initializable {
         });
     }
 
+    /**
+     * Metoda odpowiedzialna za zaktualizowanie widoku w przypadku opuszczenia gry przez jednego z klientow
+     * @param vb Glowna tablica
+     */
     public static void opponentLeft(VBox vb){
         Text text = new Text();
 

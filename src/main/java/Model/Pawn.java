@@ -1,16 +1,23 @@
 package Model;
 
-import Model.Model;
-
 import static Model.Model.getField;
 import static Model.Model.setField;
 import static java.lang.Math.abs;
 
+/**
+ * Klasa odpowiedzialna za obsluge pionkow, implementuje interfejs Moves
+ */
 public abstract class Pawn implements Moves {
     protected int x1;
     protected int y1;
     protected int color;
 
+    /**
+     * Tworzy pionek o podanym kolorze na pozycji x, y w tablicy
+     * @param x1 Pozycja x
+     * @param y1 Pozycja y
+     * @param color Kolor pionka
+     */
     public Pawn(int x1, int y1, int color){
         this.x1 = x1;
         this.y1 = y1;
@@ -59,6 +66,12 @@ public abstract class Pawn implements Moves {
         }
     }
 
+    /**
+     * Metoda odpowiedzialna za sprawdzenie bicia pionka we wszystkich kierunkach
+     * @param x2 Pozycja x na ktora się rusza
+     * @param y2 Pozycja y na ktora się rusza
+     * @return czy jest mozliwe bicie
+     */
     @Override
     public boolean punch(int x2, int y2) {
         if(isPunchUpRightAvi(x1, y1, color) && x2 > x1 && y2 < y1) {
@@ -92,6 +105,12 @@ public abstract class Pawn implements Moves {
         return getField(y2, x2) == color && getField(y1, x1) == 1;
     }
 
+    /**
+     * Metoda odpowiedzialna za sprawdzenie ruchu pionka
+     * @param x2 Pozycja x na ktora się rusza
+     * @param y2 Pozycja y na ktora się rusza
+     * @return Czy jest mozliwy ruch
+     */
     @Override
     public boolean normalMove(int x2, int y2) {
         if(abs(x1 - x2) != 1) {
@@ -109,6 +128,10 @@ public abstract class Pawn implements Moves {
         }
     }
 
+    /**
+     * Metoda wymuszajaca na pionku bicie jeśli jest ono mozliwe, w przeciwnym wypadku gracz traci pionek
+     * @return Czy pionek ma zniknac
+     */
     boolean noPunchNoLife() {
         if(isPunchAvi(x1, y1, color)) {
             setField(y1, x1, 1);

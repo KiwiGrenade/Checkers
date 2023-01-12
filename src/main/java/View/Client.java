@@ -6,12 +6,19 @@ import javafx.scene.layout.VBox;
 import java.io.*;
 import java.net.Socket;
 
+/**
+ * Klasa odpowiedzialna za klienta i jego komunikacje z serwerem
+ */
 public class Client {
 
     private Socket socket;
     private BufferedWriter bufferedWriter;
     private BufferedReader bufferedReader;
 
+    /**
+     * Tworzy klienta i jego droge komunikacji
+     * @param socket klient
+     */
     public Client(Socket socket){
         try {
             this.socket = socket;
@@ -24,6 +31,10 @@ public class Client {
         }
     }
 
+    /**
+     * Przesylanie wiadomosci do serwera
+     * @param messageToServer wiadomosc do serwera
+     */
     public void sendMessageToServer(String messageToServer){
         try {
             bufferedWriter.write(messageToServer);
@@ -35,12 +46,17 @@ public class Client {
         }
     }
 
+    /**
+     * Odbiera i obsluguje wykonanie komendy wyslanej przez serwer
+     * @param vb Element GUI na ktory ma wplyw wiadomosc z serwera
+     * @param gpCheckerboard Element GUI na ktory ma wplyw wiadomosc z serwera
+     */
     public void receiveMessageFromServer(VBox vb, GridPane gpCheckerboard){
         Runnable runnable = () -> {
             while (socket.isConnected()){
                 try {
                     String messageFromServer = bufferedReader.readLine();
-                    System.out.println("Server message: " + messageFromServer);
+                    //System.out.println("Server message: " + messageFromServer);
                     if(messageFromServer.startsWith("0")) {
                         CheckersController.drawCheckers(vb, gpCheckerboard, messageFromServer);
                     }
@@ -70,6 +86,9 @@ public class Client {
         thread.start();
     }
 
+    /**
+     * Zamyka polaczenie klienta z serwerem
+     */
     public void closeEverything(){
         try {
             if(bufferedWriter!=null){

@@ -2,8 +2,9 @@ package Model;
 
 import Server.ClientHandler;
 
-import static java.lang.Math.abs;
-
+/**
+ * Glowna klasa odpowiedzialna za caly model warcabow
+ */
 public class Model {
     private static int[][] fields;
     private static int size;
@@ -13,6 +14,11 @@ public class Model {
         return gameMode;
     }
 
+    /**
+     * Tworzy tablice do gry o podanym rozmiarze i trybie
+     * @param size Rozmiar tablicy
+     * @param gameMode1 Tryb rozgrywki
+     */
     public Model(int size, String gameMode1) {
         Model.size = size;
         fields = new int[size][size];
@@ -21,6 +27,10 @@ public class Model {
         placeCheckers();
     }
 
+    /**
+     * Ustawia aktualnego gracza
+     * @param player Aktualny gracz
+     */
     public static void setCurrentPlayer(ClientHandler player) {
         currentPlayer = player;
     }
@@ -33,6 +43,12 @@ public class Model {
         return size;
     }
 
+    /**
+     * Zwraca konkretne pole na tablicy
+     * @param row Rzad
+     * @param col Kolumna
+     * @return Zawartosc pola x,y
+     */
     public static int getField(int row, int col) {
         if ((row >= 0 && row < size)  && (col >= 0 && col < size)) {
             return fields[row][col];
@@ -50,11 +66,17 @@ public class Model {
         return fields;
     }
 
+    /**
+     * Metoda pomocnicza dla testow jednostkowych, ustawia konkretne wartosci dla tablicy
+     * @param fields Wartosci pol
+     */
     public static void setAllFields(int[][] fields) {
         Model.fields = fields;
     }
 
-    //ustawia kolory na tablicy
+    /**
+     * Metoda ustawiajaca kolory pol na szachownicy
+     */
     public static void setTiles() {
         for (int i = 0; i < size; i++) {
             for (int j = 0; j < size; j++) {
@@ -68,6 +90,10 @@ public class Model {
         }
     }
 
+    /**
+     * Metoda przerabiajaca aktualny stan tablicy na ciag cyfr w celu ulatwienia komunikacji z serwerem
+     * @return Tablica w postaci ciagu cyfr
+     */
     public static String fieldsToString() {
         String string = "";
         for (int[] x : fields) {
@@ -79,6 +105,11 @@ public class Model {
         return string;
     }
 
+    /**
+     * Metoda sprawdzajaca aktualny stan tablicy i informujaca o zwyciestwie jednego z graczy
+     * @param boardState Stan tablicy
+     * @return Informacja o zwyciestwie
+     */
     public static boolean win(String boardState){
         if(!boardState.contains("3") && !boardState.contains("5"))
             return true;
@@ -88,7 +119,9 @@ public class Model {
             return false;
     }
 
-    //ustawia pionki 2 - biale 3 - czarne
+    /**
+     * Metoda rozstawiajaca pionki na starcie gry
+     */
     public static void placeCheckers() {
         for (int i = size - 3; i < size; i++) {
             for (int j = 0; j < size; j++) {
@@ -105,6 +138,12 @@ public class Model {
         }
     }
 
+    /**
+     * Metoda sprawdzajaca kolor danego gracza w celu weryfikacji poprawnego wybrania pionka
+     * @param x1 Pozycja x pionka
+     * @param y1 Pozycja y pionka
+     * @return Czy gracz ma prawo sie nim ruszac
+     */
     public static boolean checkPlayer(int x1, int y1) {
         if (currentPlayer.getMark() == 'W')
             return (getField(y1, x1) == 2) || (getField(y1, x1) == 4);
@@ -113,6 +152,14 @@ public class Model {
 
     }
 
+    /**
+     * Metoda obslugujaca ruchy pionkow
+     * @param x1 Pozycja poczatkowa x
+     * @param y1 Pozycja poczatkowa y
+     * @param x2 Pozycja koncowa x
+     * @param y2 Pozycja koncowa y
+     * @return Czy mozna wykonac ruch
+     */
     public static int playerMove(int x1, int y1, int x2, int y2) {
         //can't move to a white field (1) or other pawn (2,3)
         if (getField(y2, x2) != 1 || getField(y1, x1) < 2) {

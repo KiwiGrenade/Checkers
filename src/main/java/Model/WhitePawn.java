@@ -1,10 +1,16 @@
 package Model;
 
-import Model.Model;
-
 import static Model.Model.getField;
 
+/**
+ * Klasa odpowiedzialna za bialy pionek i jego ruchy
+ */
 public class WhitePawn extends Pawn {
+    /**
+     * Tworzy bialy pionek na pozycji x, y w tablicy
+     * @param x1 Pozycja x
+     * @param y1 Pozycja y
+     */
     public WhitePawn(int x1, int y1) {
         super(x1, y1, 2);
     }

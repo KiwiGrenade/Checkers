@@ -7,8 +7,17 @@ import java.net.ServerSocket;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
+/**
+ * Glowna klasa serwera
+ */
 public class ChessServer {
     private static final ExecutorService pool = Executors.newFixedThreadPool(2);
+
+    /**
+     * Metoda glowna
+     * @param args Argumenty startowe - rodzaj warcabow
+     * @throws IOException IOException
+     */
     public static void main(String[] args) throws IOException {
 
         ServerSocket server = new ServerSocket(12345);

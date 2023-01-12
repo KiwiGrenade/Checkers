@@ -1,11 +1,18 @@
 package Model;
 
-import Model.Model;
-
 import static Model.Model.*;
 import static java.lang.Math.abs;
 
+/**
+ * Klasa odpowiedzialna za obsluge krolowej, rozszerza klase Pawn
+ */
 public class Queen extends Pawn {
+    /**
+     * Tworzy krolowa w na pozycji x, y w tablicy
+     * @param x1 pozycja x
+     * @param y1 pozycja y
+     * @param color kolor krolowej
+     */
     public Queen(int x1, int y1, int color) {
         super(x1, y1, color);
     }
@@ -62,6 +69,12 @@ public class Queen extends Pawn {
         return false;
     }
 
+    /**
+     * Metoda odpowiedzialna za sprawdzenie ruchu krolowej
+     * @param x2 Pozycja x na ktora się rusza
+     * @param y2 Pozycja y na ktora się rusza
+     * @return Czy jest mozliwy ruch
+     */
     @Override
     public boolean normalMove(int x2, int y2) {
         if(Model.getGameMode() == 1 && abs(x1 - x2) != 1){
@@ -75,6 +88,12 @@ public class Queen extends Pawn {
         }
     }
 
+    /**
+     * Metoda odpowiedzialna za sprawdzenie bicia krolowej we wszystkich kierunkach
+     * @param x2 Pozycja x na ktora się rusza
+     * @param y2 Pozycja y na ktora się rusza
+     * @return Czy jest mozliwe bicie
+     */
     @Override
     public boolean punch(int x2, int y2) {
         if(Model.getGameMode() == 1) {

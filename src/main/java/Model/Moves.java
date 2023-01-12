@@ -1,5 +1,8 @@
 package Model;
 
+/**
+ * Interfejs dla pionkow - kazdy musi obslugiwac dane ruchy
+ */
 public interface Moves {
     boolean isPunchAvi(int x, int y, int color);
     boolean isPunchUpLeftAvi(int x, int y, int color);

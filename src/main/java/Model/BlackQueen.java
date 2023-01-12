@@ -1,6 +1,14 @@
 package Model;
 
+/**
+ * Klasa odpowiedzialna za czarna krolowa i jej ruchy, dziedziczy po Queen
+ */
 public class BlackQueen extends Queen {
+    /**
+     * Tworzy czarna krolowa na pozycji x, y w tablicy
+     * @param x1 Pozycja x
+     * @param y1 Pozycja y
+     */
     public BlackQueen(int x1, int y1) {
         super(x1, y1, 5);
     }

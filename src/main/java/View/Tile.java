@@ -3,8 +3,14 @@ package View;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 
-//pole na szachownicy
+/**
+ * Klasa odpowiedzialna za pole na szachownicy
+ */
 public class Tile extends Rectangle {
+    /**
+     * Tworzy pole dziedziczac po Rectangle
+     * @param white Jesli prawda, to pole jest biale
+     */
     public Tile(boolean white) {
         super(CheckersController.TILE_SIZE,
                 CheckersController.TILE_SIZE,

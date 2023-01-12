@@ -2,18 +2,16 @@
 Project for Technology of Programming class at University of Scienece and Technology in Wroclaw, winter semester 2022/2023
 
 Rodzaje warcab:
-- warcaby dwuliniowe 8 x 8, tak, tak, dowolnego, nie, czarne
-- warcaby polskie 10 x 10, tak, tak, najelpszego, tak, czarne
-- warcaby klasyczne 8 x 8, tak, tak, najlepszego, tak, czarne *PODSTAWA*
+- warcaby angielskie 8 x 8, P, stop, krotki, dowolne
+- warcaby szwedzkie 8 x 8, P+T, nie, długi, dowolne
+- warcaby rosyjskie 8 x 8, P+T, tak, długi, dowolne
 
 Widok:
-- Gui w Swingu, szachownica i pionki
-- Po kliknięci swojego pionka pionek przechodzi w stan aktywny
-- Podświetlane są pola na które pionek może się poruszyć
+- Gui w Javafx, szachownica i pionki
+- Po kliknięci pionka pionek przechodzi w stan aktywny
 - poruszamy się tyko po czarnych polach
-- 
+- Wysyłanie współrzędnych do serwera
 
 Model:
-- tworzy [][] array z 0, 1, i 2 na poczatku gry 0 - puste pole 1- bialy 2- czarny
-- kazdy pionek pobiera informacje o polach 
-- checker board ma w konstruktorze array[][] na podstawie ktorego buduje plansze
+- tworzy [][] array z 0, 1, i 2 na poczatku gry 0 - puste pole 1- czarne 2-biale 3- czarnu
+- 4 i 5 damki
